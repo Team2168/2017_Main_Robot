@@ -46,8 +46,7 @@ public class OI {
 	 * Private constructor for singleton class which instantiates the OI object
 	 */
 	private OI() {
-		operatorJoystick = new F310(RobotMap.operatorJoystick);
-		operatorJoystick.ButtonX().whileHeld(new org.team2168.Robot.commands.Shooter.DriveShooterWithConstant());
+
 	}
 
 	/**
