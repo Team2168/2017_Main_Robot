@@ -17,7 +17,6 @@
 tmp/
 .gradle
 /dist/
-.classpath
 
 
 #FRC Specific
