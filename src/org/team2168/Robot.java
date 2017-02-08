@@ -12,6 +12,7 @@ import org.team2168.subsystems.ShooterIndexer;
 import org.team2168.subsystems.BallElevator;
 import org.team2168.subsystems.BallIntake;
 import org.team2168.subsystems.ShooterHood;
+import org.team2168.subsystems.Shooter;
 import org.team2168.utils.consoleprinter.ConsolePrinter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -37,8 +38,8 @@ public class Robot extends IterativeRobot {
 	public static GearIntakeArm gearIntakeArm;
 	public static GearIntakeRoller gearIntakeRoller;
 	public static ShooterHood shooterhood;
-
 	public static PowerDistribution pdp;
+	public static Shooter shooter;
 
 	public static OI oi;
 

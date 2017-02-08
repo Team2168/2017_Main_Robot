@@ -1,5 +1,6 @@
 package org.team2168;
 
+import org.team2168.commands.DriveShooterWithConstant;
 import org.team2168.utils.F310;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -46,7 +47,7 @@ public class OI {
 	 * Private constructor for singleton class which instantiates the OI object
 	 */
 	private OI() {
-
+		operatorJoystick.ButtonX().whileHeld(new DriveShooterWithConstant(0.5));
 	}
 
 	/**
