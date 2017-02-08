@@ -203,7 +203,6 @@ public class RobotMap {
 	/*************************************************************************
 	 *                            PID PARAMETERS
 	 *************************************************************************/
-	
 
 
 
@@ -245,4 +244,15 @@ public class RobotMap {
 	 * *****************************************/
 	public static final I2C.Port I2C_PORT = I2C.Port.kOnboard;
 	public static final int I2C_ADDRESS = 10;
+	
+	/***************
+	 * Meme Values *
+	 **************/
+	private static final boolean confirmed = true;
+	private static final boolean Illuminati = confirmed;
+	//    /\
+	//   /  \
+	//  / (o)\
+	// /______\
+	
 }
