@@ -37,7 +37,7 @@ public class Drivetrain extends Subsystem {
 	private static VictorSP RightMotor1;
 	private static VictorSP RightMotor2;
 
-	private static ADXRS453Gyro gyroSPI;	
+	public static ADXRS453Gyro gyroSPI;	
 	private static DoubleSolenoid gearChanger;
 	private static AverageEncoder drivetrainRightEncoder;
 	private static AverageEncoder drivetrainLeftEncoder;
@@ -336,6 +336,14 @@ public class Drivetrain extends Subsystem {
     public static void calibrateGyro(){
     	gyroSPI.calibrate();
     }
+    
+	/**
+	 * @return true if the gyro is being calibrated.
+	 */
+	public boolean isGyroCalibrating() {
+		return gyroSPI.isCalibrating();
+	}
+
     
     /**
      * Terminates active gyro calibration sequence
