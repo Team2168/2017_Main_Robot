@@ -47,7 +47,7 @@ public class OI {
 	 * Private constructor for singleton class which instantiates the OI object
 	 */
 	private OI() {
-		operatorJoystick.ButtonX().whileHeld(new DriveShooterWithConstant(0.5));
+		operatorJoystick.ButtonX().whileHeld(new DriveShooterWithConstant(.5));
 	}
 
 	/**

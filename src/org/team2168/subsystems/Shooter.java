@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Krystina
  */
 public class Shooter extends Subsystem {
-	private Talon shooterFWD;
-	private Talon shooterAFT;
+	private Talon shooterLeft;
+	private Talon shooterRight;
 	private AverageEncoder shooterEncoder;
 	
 	
@@ -33,20 +33,20 @@ public class Shooter extends Subsystem {
 	TCPSocketSender TCPShooterController;
 	
 	//output voltage...ONLY FOR DEBUGGING PURPOSES, SHOULD BE REMOVED FOR COMPITITION
-	private volatile double AFTMotorVoltage;
-	private volatile double FWDMotorVoltage;
+	private volatile double RightMotorVoltage;
+	private volatile double LeftMotorVoltage;
 		
 	/**
 	 * Private singleton constructor for the Shooter subsystem
 	 */
 	private Shooter () {
-			shooterFWD = new Talon (RobotMap.SHOOTER_WHEEL_FWD);
-			shooterFWD.setExpiration(0.1);
-			shooterFWD.setSafetyEnabled(true);
+			shooterLeft = new Talon (RobotMap.SHOOTER_WHEEL_LEFT);
+			shooterLeft.setExpiration(0.1);
+			shooterLeft.setSafetyEnabled(true);
 			
-			shooterAFT = new Talon (RobotMap.SHOOTER_WHEEL_AFT);
-			shooterAFT.setExpiration(0.1);
-			shooterAFT.setSafetyEnabled(true);	
+			shooterRight = new Talon (RobotMap.SHOOTER_WHEEL_RIGHT);
+			shooterRight.setExpiration(0.1);
+			shooterRight.setSafetyEnabled(true);	
 		
 
 		shooterEncoder = new AverageEncoder(RobotMap.SHOOTER_ENCODER_A, 
@@ -63,8 +63,8 @@ public class Shooter extends Subsystem {
 		
 		
 		
-		AFTMotorVoltage = 0;
-		FWDMotorVoltage = 0;
+		RightMotorVoltage = 0;
+		LeftMotorVoltage = 0;
 	}
 	
 	/**
@@ -81,12 +81,12 @@ public class Shooter extends Subsystem {
 	
 	/**
 	 * Takes in a speed and drives the both motors at the same instance
-	 * @param speed -1 to 1 if given a positive value the ball will move inward. If negative the ball will move outward.
+	 * @param speed -1 to 1 if given a positive value the ball will move outward. If negative the ball will inward.
 	 * @author Krystina
 	 */
-	public void driveShooter(double speed) {
-		driveFWDShooterWheel(speed);
-		driveAFTShooterWheel(speed);
+	public void setShooterSpeed(double speed) {
+		driveLeftShooterWheel(speed);
+		driveRightShooterWheel(speed);
 		
 	}
 	
@@ -95,11 +95,11 @@ public class Shooter extends Subsystem {
 	 * @param speed -1 to 1
 	 * @author Krystina
 	 */
-	public void driveFWDShooterWheel(double speed) {
-		if(RobotMap.REVERSE_SHOOTER_WHEEL_FWD)
+	private void driveLeftShooterWheel(double speed) {
+		if(RobotMap.REVERSE_SHOOTER_WHEEL_LEFT)
 			speed = -speed;
 		
-		shooterFWD.set(speed);
+		shooterLeft.set(speed);
 	}
 	
 	/**
@@ -107,11 +107,11 @@ public class Shooter extends Subsystem {
 	 * @param speed -1 to 1
 	 * @author Krystina
 	 */
-	public void driveAFTShooterWheel(double speed) {
-		if(RobotMap.REVERSE_SHOOTER_WHEEL_AFT)
+	private void driveRightShooterWheel(double speed) {
+		if(RobotMap.REVERSE_SHOOTER_WHEEL_RIGHT)
 			speed = -speed;
 			
-		shooterAFT.set(speed);
+		shooterRight.set(speed);
 	}
 	
 	/**
@@ -133,16 +133,16 @@ public class Shooter extends Subsystem {
 	 * Returns the last commanded voltage to the motor
 	 * @return double in volts representing last commanded voltage to motor
 	 */
-	public double getAFTMotorVoltage() {
-		return AFTMotorVoltage;
+	public double getRightMotorVoltage() {
+		return RightMotorVoltage;
 	}
 
 	/**
 	 * Returns the last commanded voltage to the motor
 	 * @return double in volts representing last commanded voltage to motor
 	 */
-	public double getFWDMotorVoltage() {
-		return FWDMotorVoltage;
+	public double getLeftMotorVoltage() {
+		return LeftMotorVoltage;
 	}
 	
 	

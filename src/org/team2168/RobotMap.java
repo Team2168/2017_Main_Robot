@@ -34,10 +34,9 @@ public class RobotMap {
 	public static final int ELEVATOR_MOTOR = 9;
 
 	//Channels 10-25 on MXP
-	public static final int SHOOTER_WHEEL_FWD = 10;
-	public static final int SHOOTER_WHEEL_AFT = 11;
-	public static final int SHOOTER_HOOD_SERVO = 12;
-	public static final int GEAR_INTAKE_MOTOR = 13;
+
+	public static final int SHOOTER_WHEEL_LEFT = 10;
+	public static final int SHOOTER_WHEEL_RIGHT = 11;
 
 
 	//Solenoid Channels////////////////////////////////////////////////////////
@@ -128,8 +127,8 @@ public class RobotMap {
 	 *                         Shooter PARAMETERS
 	 *************************************************************************/
 	//TODO check if the reverse values match the physical robot
-	public static final boolean REVERSE_SHOOTER_WHEEL_FWD= false;
-	public static final boolean REVERSE_SHOOTER_WHEEL_AFT= false;
+	public static final boolean REVERSE_SHOOTER_WHEEL_LEFT= false;
+	public static final boolean REVERSE_SHOOTER_WHEEL_RIGHT= false;
 
 	private static final int SHOOTER_PULSE_PER_ROTATION = 256; //encoder ticks per rotation
 	//TODO find ratio
