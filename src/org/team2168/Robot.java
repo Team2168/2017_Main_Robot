@@ -9,6 +9,7 @@ import org.team2168.utils.Debouncer;
 import org.team2168.utils.PowerDistribution;
 import org.team2168.subsystems.Turret;
 import org.team2168.subsystems.ShooterIndexer;
+import org.team2168.commands.drivetrain.DriveWithJoystick;
 import org.team2168.subsystems.BallElevator;
 import org.team2168.subsystems.BallIntake;
 import org.team2168.subsystems.ShooterHood;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -53,6 +55,9 @@ public class Robot extends IterativeRobot {
 	private double curAngle = 0.0;
 	
     Command autonomousCommand;
+    
+    static Command controlStyle;
+    public static SendableChooser<Command> controlStyleChooser;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -145,6 +150,17 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    /**
+     * Adds control styles to the selector
+     */
+    public void controlStyleSelectInit(){
+    	controlStyleChooser = new SendableChooser<>();
+    	controlStyleChooser.addDefault("Tank Drive", new DriveWithJoystick(0));
+    	controlStyleChooser.addObject("Arcade Drive", new DriveWithJoystick(1));
+    	controlStyleChooser.addObject("GTA Drive", new DriveWithJoystick(2));
+    	controlStyleChooser.addObject("Gun Style Controller", new DriveWithJoystick(3));
     }
     
     /**
