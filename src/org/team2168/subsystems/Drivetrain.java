@@ -1,14 +1,21 @@
 package org.team2168.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
 
 import org.team2168.Robot;
 import org.team2168.RobotMap;
+import org.team2168.PID.controllers.PIDPosition;
+import org.team2168.PID.controllers.PIDSpeed;
 import org.team2168.PID.sensors.ADXRS453Gyro;
 import org.team2168.PID.sensors.AverageEncoder;
+import org.team2168.PID.sensors.BNOHeading;
+import org.team2168.PID.sensors.IMU;
+import org.team2168.PID.sensors.TCPCamSensor;
 import org.team2168.commands.drivetrain.DriveWithJoystick;
 import org.team2168.subsystems.Drivetrain;
+import org.team2168.utils.BNO055;
 import org.team2168.utils.consoleprinter.ConsolePrinter;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,18 +25,39 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Aidan Sullivan
  */
 public class Drivetrain extends Subsystem {
+	private SpeedController leftMotor1;
+	private SpeedController leftMotor2;
+	private SpeedController leftMotor3;
+	private SpeedController rightMotor1;
+	private SpeedController rightMotor2;
+	private SpeedController rightMotor3;
 	
 	private static VictorSP LeftMotor1;
 	private static VictorSP LeftMotor2;
 	private static VictorSP RightMotor1;
 	private static VictorSP RightMotor2;
 
-	private static ADXRS453Gyro gyroSPI;	
+	public static ADXRS453Gyro gyroSPI;	
 	private static DoubleSolenoid gearChanger;
-	private static AverageEncoder RightEncoder;
-	private static AverageEncoder LeftEncoder;
+	private static AverageEncoder drivetrainRightEncoder;
+	private static AverageEncoder drivetrainLeftEncoder;
 	
 	private static Drivetrain instance = null;
+
+	private BNO055 gyro;
+	private BNOHeading stupidPIDSensorGyro;
+	public IMU imu;
+	public TCPCamSensor tcpCamSensor;
+	
+	//declare position/speed controllers
+	public PIDPosition driveTrainPosController;
+	public PIDPosition rotateController;
+	public PIDPosition rotateDriveStraightController;
+	public PIDPosition rotateCameraController;	
+	
+	//declare speed controllers
+	public PIDSpeed rightSpeedController;
+	public PIDSpeed leftSpeedController;
 	
 	//For debugging only
 	public static volatile double LeftMotor1Voltage = 0.0;
@@ -50,7 +78,7 @@ public class Drivetrain extends Subsystem {
 		
 		gearChanger = new DoubleSolenoid(RobotMap.DRIVETRAIN_LOW_GEAR, RobotMap.DRIVETRAIN_HIGH_GEAR);
 		
-		RightEncoder = new AverageEncoder(
+		drivetrainRightEncoder = new AverageEncoder(
 				RobotMap.RIGHT_DRIVE_ENCODER_A,
 				RobotMap.RIGHT_DRIVE_ENCODER_B,
 				RobotMap.DRIVE_ENCODER_PULSE_PER_ROT,
@@ -61,7 +89,7 @@ public class Drivetrain extends Subsystem {
 				RobotMap.DRIVE_POS_RETURN_TYPE,
 				RobotMap.DRIVE_AVG_ENCODER_VAL);
 
-		LeftEncoder = new AverageEncoder(
+		drivetrainLeftEncoder = new AverageEncoder(
 				RobotMap.LEFT_DRIVE_ENCODER_A, 
 				RobotMap.LEFT_DRIVE_ENCODER_B,
 				RobotMap.DRIVE_ENCODER_PULSE_PER_ROT,
@@ -72,10 +100,62 @@ public class Drivetrain extends Subsystem {
 				RobotMap.DRIVE_POS_RETURN_TYPE,
 				RobotMap.DRIVE_AVG_ENCODER_VAL);
 		
+		//DriveStraight Controller
+		rotateController = new PIDPosition(
+				"RotationController",
+				RobotMap.ROTATE_POSITION_P,
+				RobotMap.ROTATE_POSITION_I,
+				RobotMap.ROTATE_POSITION_D,
+				gyroSPI,
+				RobotMap.DRIVE_TRAIN_PID_PERIOD);
+		
+		rotateCameraController = new PIDPosition(
+				"RotationCameraController",
+				RobotMap.ROTATE_POSITION_P,
+				RobotMap.ROTATE_POSITION_I,
+				RobotMap.ROTATE_POSITION_D,
+				tcpCamSensor,
+				RobotMap.DRIVE_TRAIN_PID_PERIOD);
+		
+		rotateDriveStraightController = new PIDPosition(
+				"RotationStraightController",
+				RobotMap.ROTATE_POSITION_P_Drive_Straight,
+				RobotMap.ROTATE_POSITION_I_Drive_Straight,
+				RobotMap.ROTATE_POSITION_D_Drive_Straight,
+				gyroSPI,
+				RobotMap.DRIVE_TRAIN_PID_PERIOD);
+
+		driveTrainPosController = new PIDPosition(
+				"driveTrainPosController",
+				RobotMap.DRIVE_TRAIN_RIGHT_POSITION_P,
+				RobotMap.DRIVE_TRAIN_RIGHT_POSITION_I,
+				RobotMap.DRIVE_TRAIN_RIGHT_POSITION_D,
+				imu,
+				RobotMap.DRIVE_TRAIN_PID_PERIOD);
+
+		//Spawn new PID Controller
+		rightSpeedController = new PIDSpeed(
+				"RightSpeedController",
+				RobotMap.DRIVE_TRAIN_RIGHT_SPEED_P,
+				RobotMap.DRIVE_TRAIN_RIGHT_SPEED_I,
+				RobotMap.DRIVE_TRAIN_RIGHT_SPEED_D, 1,
+				drivetrainRightEncoder,
+				RobotMap.DRIVE_TRAIN_PID_PERIOD);
+
+		leftSpeedController = new PIDSpeed(
+				"LeftSpeedController",
+				RobotMap.DRIVE_TRAIN_LEFT_SPEED_P,
+				RobotMap.DRIVE_TRAIN_LEFT_SPEED_I,
+				RobotMap.DRIVE_TRAIN_LEFT_SPEED_D, 1,
+				drivetrainLeftEncoder,
+				RobotMap.DRIVE_TRAIN_PID_PERIOD);
+		
 		//Log sensor data
 		ConsolePrinter.putNumber("Drivetrain Right Encoder", Drivetrain::getRightPosition, true, false);
 		ConsolePrinter.putNumber("Drivetrain Left Encoder", Drivetrain::getLeftPosition, true, false);
 	}
+	
+	
 	
 	/**
 	 * Calls instance object and makes it a singleton object of type Drivetrain
@@ -87,6 +167,8 @@ public class Drivetrain extends Subsystem {
 		
 		return instance;
 	}
+	
+	
     
 	/**
      * Calls left motor 1 and creates a local variable "speed"
@@ -175,7 +257,7 @@ public class Drivetrain extends Subsystem {
      * @param rightSpeed is a double between -1 and 1
      * negative is reverse, positive if forward, 0 is stationary
      */
-    public void driveRobot(double leftSpeed, double rightSpeed) {
+    public void tankDrive(double leftSpeed, double rightSpeed) {
     	driveLeftSide(leftSpeed);
     	driveRightSide(rightSpeed);
     }
@@ -184,7 +266,7 @@ public class Drivetrain extends Subsystem {
      * Calls for default command of the drivetrain to be DriveWithJoystick
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new DriveWithJoystick());
+        setDefaultCommand(new DriveWithJoystick(0));
     }
     
     /**
@@ -192,7 +274,7 @@ public class Drivetrain extends Subsystem {
      * @return double in feet of total distance traveled by right encoder
      */
     public static double getRightPosition(){
-    	return RightEncoder.getPos();
+    	return drivetrainRightEncoder.getPos();
     }
     
     /**
@@ -200,7 +282,7 @@ public class Drivetrain extends Subsystem {
      * @return double in feet of total distance traveled by left encoder
      */
     public static double getLeftPosition(){
-    	return LeftEncoder.getPos();
+    	return drivetrainLeftEncoder.getPos();
     }
     
     /**
@@ -215,13 +297,13 @@ public class Drivetrain extends Subsystem {
      * resets position of right encoder to 0 inches
      */
     public static void resetRightPosition(){
-    	RightEncoder.reset();
+    	drivetrainRightEncoder.reset();
     }
     /**
      * resets position of left encoder to 0 inches
      */
     public static void resetLeftPosition(){
-    	LeftEncoder.reset();
+    	drivetrainLeftEncoder.reset();
     }
     
     /**
@@ -254,6 +336,14 @@ public class Drivetrain extends Subsystem {
     public static void calibrateGyro(){
     	gyroSPI.calibrate();
     }
+    
+	/**
+	 * @return true if the gyro is being calibrated.
+	 */
+	public boolean isGyroCalibrating() {
+		return gyroSPI.isCalibrating();
+	}
+
     
     /**
      * Terminates active gyro calibration sequence
@@ -332,6 +422,6 @@ public class Drivetrain extends Subsystem {
     }
     
     
+    
 }
-
 

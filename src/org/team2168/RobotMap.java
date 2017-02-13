@@ -210,7 +210,61 @@ public class RobotMap {
 	/*************************************************************************
 	 *                            PID PARAMETERS
 	 *************************************************************************/
+	//period to run PID loops on drive train
+	public static final long DRIVE_TRAIN_PID_PERIOD = 20;//70ms loop
+	public static final int DRIVE_TRAIN_PID_ARRAY_SIZE = 30;
+
+	//PID Gains for Left & Right Speed and Position
+	//Bandwidth =
+	//Phase Margin =
+	public static final double DRIVE_TRAIN_LEFT_SPEED_P =  0.4779;
+	public static final double DRIVE_TRAIN_LEFT_SPEED_I =  1.0526;
+	public static final double DRIVE_TRAIN_LEFT_SPEED_D =  0.0543;
+
+	public static final double DRIVE_TRAIN_RIGHT_SPEED_P = 0.4779;
+	public static final double DRIVE_TRAIN_RIGHT_SPEED_I = 1.0526;
+	public static final double DRIVE_TRAIN_RIGHT_SPEED_D = 0.0543;
+
+	public static final double DRIVE_TRAIN_LEFT_POSITION_P = 0.2;
+	public static final double DRIVE_TRAIN_LEFT_POSITION_I = 0.0001412646174233;
+	public static final double DRIVE_TRAIN_LEFT_POSITION_D = 0.0074778888124088;
+
+	public static final double DRIVE_TRAIN_RIGHT_POSITION_P = 0.25;
+	public static final double DRIVE_TRAIN_RIGHT_POSITION_I = 0.0001412646174233;
+	public static final double DRIVE_TRAIN_RIGHT_POSITION_D = 0.0074778888124088;
+
+	public static final double ROTATE_POSITION_P = 0.024;
+	public static final double ROTATE_POSITION_I = 0.027;
+	public static final double ROTATE_POSITION_D = 0.000000067;
 	
+	
+	public static final double ROTATE_POSITION_P_CAM = 0.024;
+	public static final double ROTATE_POSITION_I_CAM = 0.027;
+	public static final double ROTATE_POSITION_D_CAM = 0.000000067;
+	
+
+	public static final double ROTATE_POSITION_CAMERA_MAX = 0.28;
+	public static final double ROTATE_POSITION_CAMERA_MIN = 0.15;
+	
+	public static final double ROTATE_POSITION_P_Drive_Straight = 0.045;
+	public static final double ROTATE_POSITION_I_Drive_Straight = 0.001;
+	public static final double ROTATE_POSITION_D_Drive_Straight = 0.0064778888124088;
+
+	//Shooter PID Speed
+	//Bandwidth =
+	//Phase Margin =
+//	public static final double SHOOTER_SPEED_P = 0.000035;
+//	public static final double SHOOTER_SPEED_I = 0.000053; 
+//	public static final double SHOOTER_SPEED_D = 0.0000011838;
+//	public static final double SHOOTER_SPEED_N = 6.8807;
+	
+	public static final double SHOOTER_SPEED_P = 0.000037;
+	public static final double SHOOTER_SPEED_I = 0.000083; 
+	public static final double SHOOTER_SPEED_D = 0.0000011838;
+	public static final double SHOOTER_SPEED_N = 6.8807;
+	
+
+
 
 
 
