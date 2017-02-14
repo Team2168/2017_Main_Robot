@@ -151,8 +151,18 @@ public class Drivetrain extends Subsystem {
 				RobotMap.DRIVE_TRAIN_PID_PERIOD);
 		
 		//Log sensor data
-		ConsolePrinter.putNumber("Drivetrain Right Encoder", Drivetrain::getRightPosition, true, false);
-		ConsolePrinter.putNumber("Drivetrain Left Encoder", Drivetrain::getLeftPosition, true, false);
+		ConsolePrinter.putNumber("DT Right Encoder", Drivetrain::getRightPosition, true, true);
+		ConsolePrinter.putNumber("DT Left Encoder", Drivetrain::getLeftPosition, true, true);
+		
+		ConsolePrinter.putNumber("DTRightMotor1Current", Drivetrain::getDT1RightCurrent, true, true);
+		ConsolePrinter.putNumber("DTRightMotor2Current", Drivetrain::getDT2RightCurrent, true, true);
+		ConsolePrinter.putNumber("DTLeftMotor1Current", Drivetrain::getDT1LeftCurrent, true, true);
+		ConsolePrinter.putNumber("DTLeftMotor2Current", Drivetrain::getDT2LeftCurrent, true, true);
+		
+		ConsolePrinter.putNumber("DTRightMotor1Voltage", Drivetrain::getRightMotor1Voltage, true, true);
+		ConsolePrinter.putNumber("DTRightMotor2Voltage", Drivetrain::getRightMotor2Voltage, true, true);
+		ConsolePrinter.putNumber("DTLeftMotor1Voltage", Drivetrain::getLeftMotor1Voltage, true, true);
+		ConsolePrinter.putNumber("DTLeftMotor2Voltage", Drivetrain::getLeftMotor2Voltage, true, true);
 	}
 	
 	
@@ -363,7 +373,7 @@ public class Drivetrain extends Subsystem {
      * Returns the last commanded voltage of Left Motor 1
      * @return Double in volts between 0 and 12
      */
-    public double getLeftMotor1Voltage(){
+    public static double getLeftMotor1Voltage(){
     	return LeftMotor1Voltage;
     }
     
@@ -371,7 +381,7 @@ public class Drivetrain extends Subsystem {
      * Returns the last commanded voltage of Left Motor 2
      * @return Double in volts between 0 and 12
      */
-    public double getLeftMotor2Voltage(){
+    public static double getLeftMotor2Voltage(){
     	return LeftMotor2Voltage;
     }
     
@@ -379,7 +389,7 @@ public class Drivetrain extends Subsystem {
      * Returns the last commanded voltage of Right Motor 1
      * @return Double in volts between 0 and 12
      */
-    public double getRightMotor1Voltage(){
+    public static double getRightMotor1Voltage(){
     	return RightMotor1Voltage;
     } 
     
@@ -387,7 +397,7 @@ public class Drivetrain extends Subsystem {
      * Returns the last commanded voltage of Right Motor 2
      * @return Double in volts between 0 and 12
      */
-    public double getRightMotor2Voltage(){
+    public static double getRightMotor2Voltage(){
     	return RightMotor2Voltage;
     } 
     
@@ -421,7 +431,33 @@ public class Drivetrain extends Subsystem {
     	return gearChanger.get()==DoubleSolenoid.Value.kForward;
     }
     
+    /**
+     * Returns current drawn by right motor 1
+     */
+    public static double getDT1RightCurrent() {
+    	return Robot.pdp.getChannelCurrent(RobotMap.DRIVETRAIN_RIGHT_MOTOR_1_PDP);
+    }
     
+    /**
+     * Returns current drawn by right motor 2
+     */
+    public static double getDT2RightCurrent() {
+    	return Robot.pdp.getChannelCurrent(RobotMap.DRIVETRAIN_RIGHT_MOTOR_2_PDP);
+    }
+    
+    /**
+     * Returns current drawn by left motor 1
+     */
+    public static double getDT1LeftCurrent() {
+    	return Robot.pdp.getChannelCurrent(RobotMap.DRIVETRAIN_LEFT_MOTOR_1_PDP);
+    }
+    
+    /**
+     * Returns current drawn by left motor 2
+     */
+    public static double getDT2LeftCurrent() {
+    	return Robot.pdp.getChannelCurrent(RobotMap.DRIVETRAIN_LEFT_MOTOR_2_PDP);
+    }
     
 }
 
