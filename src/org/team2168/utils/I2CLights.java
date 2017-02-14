@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.I2C;
 public class I2CLights {
 	private I2C i2c;
 	private static I2CLights instance = null;
+	private static final int RANGE_COUNT = 3;
+	
 	
 	public enum Pattern {
 		Off (0),
@@ -35,7 +37,7 @@ public class I2CLights {
 	}
 	
 	public enum Range {
-		Intake, Shooter;
+		GearIntake, Turret, ShooterIntake;
 	}
     
 	private I2CLights(){
@@ -62,16 +64,21 @@ public class I2CLights {
      */
     public void writeLED(int r, int g, int b, Pattern pat, Range range){
     	byte[] data = new byte[8];
-    	if(range == Range.Intake){
+    	if(range == Range.GearIntake){
     		data[0] = (byte) r;
     		data[1] = (byte) g;
     		data[2] = (byte) b;
     		data[3] = (byte) pat.getVal();
-    	} else {
+    	} else if(range == Range.Turret){
     		data[4] = (byte) r;
     		data[5] = (byte) g;
     		data[6] = (byte) b;
     		data[7] = (byte) pat.getVal();
+    	}else{
+    		data[8] = (byte) r;
+    		data[9] = (byte) g;
+    		data[10] = (byte) b;
+    		data[11] = (byte) pat.getVal();
     	}
     	i2c.writeBulk(data);
     }
@@ -151,8 +158,8 @@ public class I2CLights {
      * @author Elijah
      */
     public void Rainbow(){
-    	writeLED(0,0,0,Pattern.Rainbow,Range.Intake);
-    	writeLED(0,0,0,Pattern.Rainbow,Range.Shooter);
+    	writeLED(0,0,0,Pattern.Rainbow,Range.GearIntake);
+    	writeLED(0,0,0,Pattern.Rainbow,Range.Turret);
     }
     
     /**
