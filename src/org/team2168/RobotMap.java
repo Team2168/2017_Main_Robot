@@ -123,7 +123,7 @@ public class RobotMap {
 	/*************************************************************************
 	 *                         DRIVETRAIN PARAMETERS
 	 *************************************************************************/
-	//TODO check if the reverse values match the physical robot
+	//TODO check if the reverse values match the physical robot (GEAR SHOULD BE FORWARD)
 	public static final boolean DT_REVERSE_RIGHT = true;
 	public static final boolean DT_REVERSE_LEFT = false;
 
@@ -285,7 +285,7 @@ public class RobotMap {
 		public static final double ROTATE_POSITION_CAMERA_MAX = 0.28;
 		public static final double ROTATE_POSITION_CAMERA_MIN = 0.15;
 		
-		public static final double ROTATE_POSITION_P_Drive_Straight = 0.045;
+		public static final double ROTATE_POSITION_P_Drive_Straight = 0.055; //0.045
 		public static final double ROTATE_POSITION_I_Drive_Straight = 0.001;
 		public static final double ROTATE_POSITION_D_Drive_Straight = 0.0064778888124088;
 

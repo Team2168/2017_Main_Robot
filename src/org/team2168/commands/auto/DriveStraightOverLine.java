@@ -10,6 +10,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveStraightOverLine extends CommandGroup {
 
     public DriveStraightOverLine() {
-        addSequential(new DriveXDistance(-9.2,0.7,0.1),10);
+        addSequential(new DriveXDistance(-9.2,0.5,0.1),10);
     }
 }

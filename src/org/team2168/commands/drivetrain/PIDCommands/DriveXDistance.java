@@ -62,7 +62,7 @@ public class DriveXDistance extends Command{
 		Robot.drivetrain.rotateDriveStraightController.reset();
 
 
-		//drivetrain.resetGyro();
+		Robot.drivetrain.resetGyro();
 		endDistance = Robot.drivetrain.getAverageDistance() + distanceGoal;
 		angle = Robot.drivetrain.getHeading();
 
