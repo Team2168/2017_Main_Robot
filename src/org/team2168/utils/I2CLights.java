@@ -37,7 +37,16 @@ public class I2CLights {
 	}
 	
 	public enum Range {
-		GearIntake, Turret, ShooterIntake;
+		GearIntake(0), Turret(1), ShooterIntake(2);
+		private final int val;
+
+		Range(int val) {
+			this.val = val;
+		}
+
+		public int getVal() {
+			return val;
+		}
 	}
     
 	private I2CLights(){
@@ -63,23 +72,12 @@ public class I2CLights {
      * @author Elijah
      */
     public void writeLED(int r, int g, int b, Pattern pat, Range range){
-    	byte[] data = new byte[8];
-    	if(range == Range.GearIntake){
-    		data[0] = (byte) r;
-    		data[1] = (byte) g;
-    		data[2] = (byte) b;
-    		data[3] = (byte) pat.getVal();
-    	} else if(range == Range.Turret){
-    		data[4] = (byte) r;
-    		data[5] = (byte) g;
-    		data[6] = (byte) b;
-    		data[7] = (byte) pat.getVal();
-    	}else{
-    		data[8] = (byte) r;
-    		data[9] = (byte) g;
-    		data[10] = (byte) b;
-    		data[11] = (byte) pat.getVal();
-    	}
+    	byte[] data = new byte[RANGE_COUNT * 4];
+    	int rangeIn = 4 * range.getVal();
+    	data[0 + rangeIn] = (byte) r;
+		data[1 + rangeIn] = (byte) g;
+		data[2 + rangeIn] = (byte) b;
+		data[3 + rangeIn] = (byte) pat.getVal();
     	i2c.writeBulk(data);
     }
     
@@ -91,6 +89,7 @@ public class I2CLights {
     public void Off(Range range){
     	writeLED(0,0,0,Pattern.Off, range);	
     }
+    
     
     /**
      * Sets the LED's to a solid color.
