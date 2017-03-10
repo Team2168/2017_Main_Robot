@@ -20,14 +20,12 @@ public class DriveHoodWithJoystick extends Command {
     }
 
     // Takes the current angle of the shooter hood servo and adds to it based on
-    // how far the right operator joystick is pushed on the Y-axis
+    
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	if(Math.abs(Robot.oi.operatorJoystick.getRightStickRaw_Y()) > 0.1)
-    		Robot.shooterHood.setAngle(Robot.shooterHood.getAngle()
-    				- (RobotMap.HOOD_JOYSTICK_MULTIPLIER * Robot.oi.operatorJoystick.getRightStickRaw_Y()));
+    		Robot.shooterHood.setAngle(Robot.shooterHood.getAngle() + RobotMap.SHOOTER_DEGREE_PER_BUTTON_RATE);
     	
     }
 

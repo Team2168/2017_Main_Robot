@@ -27,7 +27,7 @@ public class DriveTurretWithJoystick extends Command {
      */
     protected void execute() {
     	//TODO set this to whatever we need
-    	Robot.turret.setSpeed(OI.operatorJoystick.getLeftStickRaw_X());
+    	Robot.turret.setSpeed(OI.getDriveTurretJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()

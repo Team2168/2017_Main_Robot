@@ -1,6 +1,9 @@
 package org.team2168.subsystems;
 
+import org.team2168.Robot;
 import org.team2168.RobotMap;
+import org.team2168.commands.gearintake.RaiseGearArm;
+import org.team2168.utils.consoleprinter.ConsolePrinter;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -24,7 +27,12 @@ public class GearIntakeArm extends Subsystem {
 	 */
 	private GearIntakeArm() {
 		GearIntakeArmPiston = new DoubleSolenoid(RobotMap.GEAR_INTAKE_PISTON_EXTEND, RobotMap.GEAR_INTAKE_PISTON_RETRACT);
-		GearIntakeHallEffectSensor = new DigitalInput(RobotMap.GEAR_INTAKE_HALL_EFECT);
+		GearIntakeHallEffectSensor = new DigitalInput(RobotMap.GEAR_INTAKE_ARM_HALL_EFECT);
+		
+		ConsolePrinter.putBoolean("Is Gear Arm Down", 
+				() -> {return Robot.gearIntakeArm.isArmLowered();}, true, false);
+		ConsolePrinter.putBoolean("Is Gear Arm Up", 
+				() -> {return Robot.gearIntakeArm.isArmRaised();}, true, false);
 	}
 	
 	/**
@@ -61,7 +69,7 @@ public class GearIntakeArm extends Subsystem {
 	 * @author Elijah Reeds
 	 */
 	public boolean isArmRaised(){
-		return GearIntakeHallEffectSensor.get();
+		return !GearIntakeHallEffectSensor.get();
 	}
 	
 	/**
@@ -70,7 +78,7 @@ public class GearIntakeArm extends Subsystem {
 	 * @author Elijah Reeds
 	 */
 	public boolean isArmLowered(){
-		return !GearIntakeHallEffectSensor.get();
+		return GearIntakeHallEffectSensor.get();
 	}
 	
 	

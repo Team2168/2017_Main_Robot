@@ -12,7 +12,7 @@ public class DriveElevatorWithJoystick extends Command {
 
     public DriveElevatorWithJoystick() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.ballElevator);
+        requires(Robot.ballConvelator);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +21,7 @@ public class DriveElevatorWithJoystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ballElevator.driveElevator(OI.operatorJoystick.getLeftStickRaw_X());
+    	Robot.ballConvelator.driveElevator(OI.getDriveElevatorJoystick() + OI.getDriveElevatorPIDTestJoystick());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -31,7 +31,7 @@ public class DriveElevatorWithJoystick extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.ballElevator.driveElevator(0.0);
+    	Robot.ballConvelator.driveElevator(0.0);
     }
     
 

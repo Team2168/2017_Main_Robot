@@ -18,7 +18,7 @@ public class DriveIntakeWithConstant extends Command {
 	 */
     public DriveIntakeWithConstant(double inputSpeed) {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.ballIntake);
+        requires(Robot.ballIntakeRoller);
         speed = inputSpeed;
     }
 
@@ -28,7 +28,7 @@ public class DriveIntakeWithConstant extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		Robot.ballIntake.driveIntake(speed);
+		Robot.ballIntakeRoller.driveIntake(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +38,7 @@ public class DriveIntakeWithConstant extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.ballIntake.driveIntake(0.0);
+    	Robot.ballIntakeRoller.driveIntake(0.0);
     }
 
     // Called when another command which requires one or more of the same

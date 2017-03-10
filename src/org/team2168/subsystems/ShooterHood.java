@@ -1,7 +1,9 @@
 package org.team2168.subsystems;
 
+import org.team2168.Robot;
 import org.team2168.RobotMap;
 import org.team2168.commands.shooter.DriveHoodWithJoystick;
+import org.team2168.utils.consoleprinter.ConsolePrinter;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
@@ -22,14 +24,14 @@ public class ShooterHood extends Subsystem {
     private static double startTime;
 
     public static final double WPILIB_MIN_SERVO_ANGLE = 0.0; //degrees
-	public static final double WPILIB_MAX_SERVO_ANGLE = 180.0; //degrees
+	public static final double WPILIB_MAX_SERVO_ANGLE = 360.0; //degrees
     private static final double TIME_TO_SERVO_FULL_EXTENSION = 3.48; //Avg time to move from retract to extend
     private static final double PERCENT_PER_SECOND = 1.00 / TIME_TO_SERVO_FULL_EXTENSION;
     private static final double DEGREES_PER_SECOND = (WPILIB_MAX_SERVO_ANGLE - WPILIB_MIN_SERVO_ANGLE)
     		* PERCENT_PER_SECOND;
 
-    private static final double HOOD_MAX_POSITION = 0.8; //percent servo travel to max hood position
-    private static final double HOOD_MIN_POSITION = 0.1; //percent servo travel to min hood position
+    private static final double HOOD_MAX_POSITION = 1.0; //percent servo travel to max hood position
+    private static final double HOOD_MIN_POSITION = 0.0; //percent servo travel to min hood position
     
     //SERVO Parameters from https://s3.amazonaws.com/actuonix/Actuonix+L16+Datasheet.pdf
     private static final double MAX_SERVO_PWM = 2.0; //ms
@@ -49,6 +51,9 @@ public class ShooterHood extends Subsystem {
     	hoodServo = new Servo(RobotMap.SHOOTER_HOOD_SERVO);
     	hoodServo.setBounds(HOOD_MAX_PWM, CENTER_SERVO_PWM + SERVO_DEADBAND, 
     			CENTER_SERVO_PWM, CENTER_SERVO_PWM - SERVO_DEADBAND, HOOD_MIN_PWM);
+    	
+    	ConsolePrinter.putNumber("Hood Servo Angle", () -> {return Robot.shooterHood.getAngle();}, true, false);
+		
     }
 	
 	/**
@@ -86,18 +91,21 @@ public class ShooterHood extends Subsystem {
 	 * @return the estimated current angle of the servo in degrees
 	 */
 	public double getAngle(){
-		endAngle = hoodServo.getAngle();
-		double angleDifference = endAngle - startAngle;
-		double timeDifference = Timer.getFPGATimestamp() - startTime;
 		
-		if(angleDifference > 0)
-			currentAngle = (startAngle + (timeDifference * DEGREES_PER_SECOND));		
-		else if(angleDifference < 0)
-			currentAngle = (startAngle - (timeDifference * DEGREES_PER_SECOND));
-		else //angleDifference == 0
-			currentAngle = endAngle;
+		return hoodServo.getAngle();
 		
-		return currentAngle;
+		//endAngle = hoodServo.getAngle();
+//		double angleDifference = endAngle - startAngle;
+//		double timeDifference = Timer.getFPGATimestamp() - startTime;
+//		
+//		if(angleDifference > 0)
+//			currentAngle = (startAngle + (timeDifference * DEGREES_PER_SECOND));		
+//		else if(angleDifference < 0)
+//			currentAngle = (startAngle - (timeDifference * DEGREES_PER_SECOND));
+//		else //angleDifference == 0
+//			currentAngle = endAngle;
+//		
+//		return currentAngle;
 	}
 	
 	/**
@@ -105,7 +113,7 @@ public class ShooterHood extends Subsystem {
 	 */
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-    	setDefaultCommand(new DriveHoodWithJoystick());
+    	//setDefaultCommand(new DriveHoodWithJoystick());
     }
 }
 

@@ -13,8 +13,11 @@ import java.util.TimeZone;
 import java.util.TimerTask;
 import java.util.function.Supplier;
 
+import org.team2168.Robot;
 import org.team2168.RobotMap;
+import org.team2168.subsystems.Drivetrain;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Timer;
@@ -49,7 +52,7 @@ public class ConsolePrinter {
 		putNumber("Time", Timer::getFPGATimestamp, false, true);
 		putNumber("TimeofDay", ()->{return (double)System.currentTimeMillis();}, false, true);
 	}
-
+	
 	/**
 	 * Gets a console printer instance.
 	 * @return the console printer 
@@ -57,8 +60,11 @@ public class ConsolePrinter {
 	public static void init() {
 		if (instance == null) {
 			instance = new ConsolePrinter();
+	        
 		}
 	}
+
+	
 	
 	/**
 	 * Sets the rate of periodic logging to the dashboard and log file.  
@@ -262,4 +268,11 @@ public class ConsolePrinter {
 			ConsolePrinter.dataToFile();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 }

@@ -1,5 +1,6 @@
 package org.team2168.commands.shooter;
 
+import org.team2168.OI;
 import org.team2168.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,8 +21,9 @@ public class DriveShooterWithJoystick extends Command {
 	    }
 
 	    // Called repeatedly when this Command is scheduled to run
+	    //TODO Put OI method in
 	    protected void execute() {
-	    	Robot.shooterWheel.setShooterSpeed(Robot.oi.operatorJoystick.getLeftStickRaw_Y());
+	    	Robot.shooterWheel.setShooterSpeed(OI.getDriveShooterJoystick() + OI.getDriveShooterPIDTestJoystick());
 	    }
 
 	    // Make this return true when this Command no longer needs to run execute()

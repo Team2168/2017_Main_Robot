@@ -11,7 +11,8 @@ public class NPointAverager {
 	private int averagerSize;
 	private double[] averagerArray;
 	private int arrayPos = 0;		//Next array position to put values to be averaged
-
+	private double lastValue = 0;
+	
 	/**
 	 * Constructor for end point average class
 	 * @param n the size of N point average (>= 1)
@@ -37,6 +38,10 @@ public class NPointAverager {
 
 		return sum/averagerSize;
 	}
+	
+	public double getLatestValue(){
+		return lastValue;
+	}
 
 	/**
 	 * puts data in to array to be averaged, hence the class name and method
@@ -45,6 +50,7 @@ public class NPointAverager {
 	 * @param value the value being inserted into the array to be averaged.
 	 */
 	public void putData(double value){
+		lastValue = value;
 		averagerArray[arrayPos] = value;
 		arrayPos++;
 

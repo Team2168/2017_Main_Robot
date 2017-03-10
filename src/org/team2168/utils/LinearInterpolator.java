@@ -36,7 +36,7 @@ public class LinearInterpolator {
 		// We will start at i = 1 since we can't have a point fall outside our
 		// array.
 		for (int i = 1; !done && i < values.length; i++) {
-			if (input >= values[i][0]) {
+			if (input <= values[i][0]) {
 				// We found where the point falls in out array, between index i
 				// and i-1
 				// Calculate the equation for the line. y = m*x + b

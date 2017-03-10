@@ -1,6 +1,9 @@
 package org.team2168.subsystems;
 
+import org.team2168.Robot;
 import org.team2168.RobotMap;
+import org.team2168.commands.shooter.DriveShooterIndexerWithJoystick;
+import org.team2168.utils.consoleprinter.ConsolePrinter;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
@@ -25,8 +28,22 @@ public class ShooterIndexer extends Subsystem {
 	 */
 	private ShooterIndexer() {
 		indexerMotor = new Spark(RobotMap.INDEXER_WHEEL);
-		upperBallPresentSensor = new DigitalInput(RobotMap.INDEXER_UPPER_BALL_PRESENT);
-		lowerBallPresentSensor = new DigitalInput(RobotMap.INDEXER_LOWER_BALL_PRESENT);
+		
+		if(Robot.isPracticeRobot())
+		{
+			upperBallPresentSensor = new DigitalInput(RobotMap.INDEXER_UPPER_BALL_PRESENT_PBOT);
+			lowerBallPresentSensor = new DigitalInput(RobotMap.INDEXER_LOWER_BALL_PRESENT_PBOT);
+		}
+		else
+		{
+			upperBallPresentSensor = new DigitalInput(RobotMap.INDEXER_UPPER_BALL_PRESENT);
+			lowerBallPresentSensor = new DigitalInput(RobotMap.INDEXER_LOWER_BALL_PRESENT);
+		}
+		
+		ConsolePrinter.putBoolean("Indexer Upper Sensor", 
+				() -> {return Robot.shooterIndexer.isUpperSensorActive();}, true, false);
+		ConsolePrinter.putBoolean("Indexer Lower Sensor", 
+				() -> {return Robot.shooterIndexer.isLowerSensorActive();}, true, false);
 	}
 	
 	/**
@@ -56,7 +73,7 @@ public class ShooterIndexer extends Subsystem {
 	 * @return if ball is present (true=present, false=not present)
 	 */
 	private boolean isUpperSensorActive() {
-		return upperBallPresentSensor.get();
+		return !upperBallPresentSensor.get();
 	}
 	
 	/**
@@ -64,7 +81,7 @@ public class ShooterIndexer extends Subsystem {
 	 * @return if ball is present (true=present, false=not present)
 	 */
 	private boolean isLowerSensorActive() {
-		return lowerBallPresentSensor.get();
+		return !lowerBallPresentSensor.get();
 	}
 	
 	/**
@@ -93,7 +110,7 @@ public class ShooterIndexer extends Subsystem {
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        //setDefaultCommand(new DriveShooterIndexerWithJoystick());
     }
 }
 

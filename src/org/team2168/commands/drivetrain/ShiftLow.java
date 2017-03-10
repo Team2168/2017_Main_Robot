@@ -1,29 +1,23 @@
-package org.team2168.commands.conveyor;
+package org.team2168.commands.drivetrain;
 
-import org.team2168.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
+import org.team2168.Robot;
 
 /**
- * drives conveyor with constant voltage
+ * Shifts the drivetrain into low gear.
  */
-public class driveConveyorWithConstant extends Command {
+public class ShiftLow extends Command {
 
-	double speed;
-	
-	/**
-	 * runs conveyor at constant speed -1.0 - 1.0
-	 * @param speed
-	 */
-    public driveConveyorWithConstant(double inputSpeed) {
+    public ShiftLow() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.conveyor);
-       
-        speed = inputSpeed;
+        // eg. requires(chassis);
+    	requires(Robot.drivetrainShifter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.drivetrainShifter.shiftToLow();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,17 +26,15 @@ public class driveConveyorWithConstant extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	return Robot.drivetrainShifter.inLowGear();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.conveyor.driveConveyor(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

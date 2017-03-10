@@ -1,5 +1,6 @@
 package org.team2168.subsystems;
 
+import org.team2168.Robot;
 import org.team2168.RobotMap;
 import org.team2168.commands.ballIntake.DriveIntakeWithJoystick;
 
@@ -31,14 +32,16 @@ public class BallIntakeRoller extends Subsystem {
 	 * @param speed 1.0 to -1.0, positive values bring balls into the robot.
 	 */
 	public void driveIntake(double speed) {
-		if(RobotMap.REVERSE_BALL_INTAKE_WHEEL)
+		if(Robot.isPracticeRobot() && RobotMap.REVERSE_BALL_INTAKE_WHEEL_PBOT)
+			speed = -speed;
+		else if(!Robot.isPracticeRobot() && RobotMap.REVERSE_BALL_INTAKE_WHEEL)
 			speed = -speed;
 		
 		intakeMotor.set(speed);
 	}
 	
     public void initDefaultCommand() {
-        setDefaultCommand(new DriveIntakeWithJoystick());
+        //setDefaultCommand(new DriveIntakeWithJoystick());
     }
 }
 

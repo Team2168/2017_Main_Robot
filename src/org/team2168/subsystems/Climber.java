@@ -1,7 +1,10 @@
 package org.team2168.subsystems;
 
+import org.team2168.Robot;
 import org.team2168.RobotMap;
 import org.team2168.commands.climber.DriveClimberWithConstant;
+import org.team2168.commands.climber.DriveClimberWithJoystick;
+import org.team2168.utils.consoleprinter.ConsolePrinter;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,6 +29,15 @@ public class Climber extends Subsystem {
 		
 		climberMotorLeft.setSafetyEnabled(true);
 		climberMotorRight.setSafetyEnabled(true);
+		
+		//TODO: FIX PDP Class Current Monitoring functions
+
+		ConsolePrinter.putNumber("ClimberMotorLeftCurrent", () -> {return Robot.pdp.getChannelCurrent(RobotMap.CLIMBER_MOTOR_LEFT_PDP);}, true, true);
+		ConsolePrinter.putNumber("ClimberMotorRightCurrent", () -> {return Robot.pdp.getChannelCurrent(RobotMap.CLIMBER_MOTOR_RIGHT_PDP);}, true, true);
+		
+		ConsolePrinter.putBoolean("ClimberLeftMotorTrip", () -> {return !Robot.pdp.isLeftHangerMotorTrip();}, true, false);
+		ConsolePrinter.putBoolean("CllimberRightMotorTrip", () -> {return !Robot.pdp.isRighttHangerMotorTrip();}, true, false);
+
 		
 	}
 	
@@ -68,7 +80,7 @@ public class Climber extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new DriveClimberWithConstant(0.0));
+        //setDefaultCommand(new DriveClimberWithJoystick());
     }
 }
 
