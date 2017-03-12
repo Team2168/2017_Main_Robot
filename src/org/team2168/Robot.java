@@ -4,6 +4,7 @@ package org.team2168;
 import org.team2168.subsystems.*;
 import org.team2168.commands.auto.*;
 import org.team2168.commands.pneumatics.StartCompressor;
+import org.team2168.utils.BitRelay;
 import org.team2168.utils.Debouncer;
 import org.team2168.utils.PowerDistribution;
 import org.team2168.utils.TX1TurnON;
@@ -45,7 +46,7 @@ public class Robot extends IterativeRobot {
 	public static ShooterIndexer shooterIndexer;
 	public static ShooterWheel shooterWheel;
 	public static Turret turret;
-	
+	public static BitRelay spikeLight;
 
 	
 	static boolean autoMode;
@@ -99,7 +100,7 @@ public class Robot extends IterativeRobot {
     	shooterIndexer = ShooterIndexer.getInstance();
     	shooterWheel = ShooterWheel.getInstance();
     	turret = Turret.getInstance();
-    	
+    	spikeLight = new BitRelay(RobotMap.SPIKE_LIGHT_RELAY);
 
     	
         oi = OI.getInstance();
@@ -269,6 +270,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("GunStyleXValueMakingThisLongSoWeCanFindIt", Robot.oi.driverJoystick.getLeftStickRaw_X());
         SmartDashboard.putNumber("GunStyleXInterpolatedValueMakingThisLongSoWeCanFindIt", Robot.drivetrain.getGunStyleXValue());
         
+        RunSpikeLights();
     
     }
     
@@ -327,4 +329,9 @@ public class Robot extends IterativeRobot {
 	public static boolean isPracticeRobot() {
 		return !practiceBot.get();
 	}
+	
+	public static void RunSpikeLights(){
+		spikeLight.setForward(gearIntakeRoller.isGearPresent());
+	}
+	
 }

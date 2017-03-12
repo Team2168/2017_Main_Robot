@@ -117,7 +117,8 @@ public class RobotMap {
 
 
 	//Relay Channels///////////////////////////////////////////////////////////
-	public static final int FLASHLIGHT_RELAY = 0;
+	public static final int SPIKE_LIGHT_RELAY = 0;
+	public static final int FLASHLIGHT_RELAY = 1;
 
 
 	/*************************************************************************
