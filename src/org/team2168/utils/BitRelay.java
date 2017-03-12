@@ -1,5 +1,8 @@
 package org.team2168.utils;
 
+import org.team2168.RobotMap;
+import org.team2168.subsystems.Flashlight;
+
 import edu.wpi.first.wpilibj.Relay;
 
 /**
@@ -10,6 +13,14 @@ import edu.wpi.first.wpilibj.Relay;
  */
 public class BitRelay extends Relay {
 
+	private static BitRelay instance = null;
+	
+	public static BitRelay getInstance(){
+    	if(instance == null)
+    		instance = new BitRelay(RobotMap.SPIKE_LIGHT_RELAY);
+    	return instance;
+    }
+	
 	/**
 	 * @param channel
 	 */
@@ -42,6 +53,10 @@ public class BitRelay extends Relay {
 		super(channel, direction);
 	}
 	
+	
+
+	
+
 	/**
 	 * Set the state of the forward channel.
 	 * The innermost pin (A) on the Relay connector is "forward".

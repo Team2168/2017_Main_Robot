@@ -4,6 +4,7 @@ package org.team2168;
 import org.team2168.subsystems.*;
 import org.team2168.commands.auto.*;
 import org.team2168.commands.pneumatics.StartCompressor;
+import org.team2168.utils.BitRelay;
 import org.team2168.utils.Debouncer;
 import org.team2168.utils.PowerDistribution;
 import org.team2168.utils.TX1TurnON;
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
 	public static ShooterIndexer shooterIndexer;
 	public static ShooterWheel shooterWheel;
 	public static Turret turret;
+	public static BitRelay spikeLight;
 	
 
 	
@@ -99,7 +101,7 @@ public class Robot extends IterativeRobot {
     	shooterIndexer = ShooterIndexer.getInstance();
     	shooterWheel = ShooterWheel.getInstance();
     	turret = Turret.getInstance();
-    	
+    	spikeLight = BitRelay.getInstance();
 
     	
         oi = OI.getInstance();
@@ -323,5 +325,9 @@ public class Robot extends IterativeRobot {
 	 */
 	public static boolean isPracticeRobot() {
 		return !practiceBot.get();
+	}
+	
+	public static void SpikeLight(){
+		spikeLight.setForward(gearIntakeRoller.isGearPresent());
 	}
 }
