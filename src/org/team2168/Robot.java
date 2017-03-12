@@ -101,7 +101,7 @@ public class Robot extends IterativeRobot {
     	shooterIndexer = ShooterIndexer.getInstance();
     	shooterWheel = ShooterWheel.getInstance();
     	turret = Turret.getInstance();
-    	spikeLight = BitRelay.getInstance();
+    	spikeLight = new BitRelay(RobotMap.SPIKE_LIGHT_RELAY);
 
     	
         oi = OI.getInstance();
