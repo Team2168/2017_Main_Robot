@@ -4,8 +4,9 @@ package org.team2168;
 import org.team2168.subsystems.*;
 import org.team2168.commands.auto.*;
 import org.team2168.commands.pneumatics.StartCompressor;
-import org.team2168.utils.BitRelay;
 import org.team2168.utils.Debouncer;
+import org.team2168.utils.I2CLights;
+import org.team2168.utils.I2CLights.Range;
 import org.team2168.utils.PowerDistribution;
 import org.team2168.utils.TX1TurnON;
 import org.team2168.utils.consoleprinter.ConsolePrinter;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -46,8 +48,7 @@ public class Robot extends IterativeRobot {
 	public static ShooterIndexer shooterIndexer;
 	public static ShooterWheel shooterWheel;
 	public static Turret turret;
-	public static BitRelay spikeLight;
-	
+	public static I2CLights lights;
 
 	
 	static boolean autoMode;
@@ -101,8 +102,7 @@ public class Robot extends IterativeRobot {
     	shooterIndexer = ShooterIndexer.getInstance();
     	shooterWheel = ShooterWheel.getInstance();
     	turret = Turret.getInstance();
-    	spikeLight = new BitRelay(RobotMap.SPIKE_LIGHT_RELAY);
-
+    	lights = I2CLights.getInstance();
     	
         oi = OI.getInstance();
         
@@ -212,6 +212,8 @@ public class Robot extends IterativeRobot {
 		
 		// Check to see if the gyro is drifting, if it is re-initialize it.
 		gyroReinit();
+		
+		setLights();
 	}
 
     public void autonomousInit() {
@@ -231,7 +233,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        
+        setLights();
     }
 
     public void teleopInit() {
@@ -267,7 +269,7 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putNumber("GunStyleXValueMakingThisLongSoWeCanFindIt", Robot.oi.driverJoystick.getLeftStickRaw_X());
         SmartDashboard.putNumber("GunStyleXInterpolatedValueMakingThisLongSoWeCanFindIt", Robot.drivetrain.getGunStyleXValue());
-        
+        setLights();
     
     }
     
@@ -316,7 +318,37 @@ public class Robot extends IterativeRobot {
 		lastGyroCalibrating = gyroCalibrating;
 	}
 	
-
+	/**
+	 * Call this to set the lights via I2C
+	 * Should be called in:
+	 * -Disabled Periodic
+	 * -Auto Periodic
+	 * -Teleop Periodic
+	 * @author Elijah Reeds
+	 */
+	public static void setLights(){
+		if(RobotState.isDisabled()){
+			lights.FastBlink(255, 0, 0, Range.DriveTrain);// <--- blink all red on disabled
+			lights.FastBlink(255, 0, 0, Range.ShooterIntake);
+			lights.FastBlink(255, 0, 0, Range.Turret);
+		}else if(RobotState.isAutonomous()){
+			lights.Rainbow(); //<--- set all strips rainbow in auto
+		}else if(RobotState.isOperatorControl()){
+			if(Robot.gearIntakeRoller.isGearPresent()){
+				lights.Solid(255, 255, 0, Range.ShooterIntake);//<--- Solid Yellow while gear present
+			}else{
+				lights.Fade(255, 0, 0, Range.ShooterIntake);//<--- Fade red while no gear present.
+			}
+			
+			if(Robot.drivetrainShifter.inLowGear()){
+				lights.ChaseIn(255, 0, 0, Range.DriveTrain);//<--- Chase in red in low gear.
+			}else if(Robot.drivetrainShifter.inHighGear()){
+				lights.ChaseIn(0, 255, 0, Range.DriveTrain);//<--- Chae in green in high gear
+			}
+		}
+		
+	}
+	
 	
 	/**
 	 * Returns the status of DIO pin 24 
@@ -327,7 +359,4 @@ public class Robot extends IterativeRobot {
 		return !practiceBot.get();
 	}
 	
-	public static void SpikeLight(){
-		spikeLight.setForward(gearIntakeRoller.isGearPresent());
-	}
 }

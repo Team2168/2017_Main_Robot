@@ -37,7 +37,7 @@ public class I2CLights {
 	}
 	
 	public enum Range {
-		GearIntake(0), Turret(1), ShooterIntake(2);
+		DriveTrain(0), ShooterIntake(1), Turret(2);
 		private final int val;
 
 		Range(int val) {
@@ -157,8 +157,8 @@ public class I2CLights {
      * @author Elijah
      */
     public void Rainbow(){
-    	writeLED(0, 0, 0, Pattern.Rainbow, Range.GearIntake);
-    	writeLED(0, 0, 0, Pattern.Rainbow, Range.Turret);
+    	writeLED(0, 0, 0, Pattern.Rainbow, Range.ShooterIntake);
+    	writeLED(0, 0, 0, Pattern.Rainbow, Range.DriveTrain);
     }
     
     /**
