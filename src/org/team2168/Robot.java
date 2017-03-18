@@ -59,6 +59,11 @@ public class Robot extends IterativeRobot {
 	public static boolean gyroCalibrating = false;
 	private boolean lastGyroCalibrating = false;
 	private double curAngle = 0.0;
+	
+	//Whether or not low battery pattern shows above others in auto and teleop mode. KEEP THIS FALSE DURING COMPETITION!
+	public static final boolean BAT_OVERRIDE = false; 
+	public static final double LOW_BAT_VOLTAGE = 12.1;//The voltage that the lowbat light warning shows up.
+	public static boolean opWarning = false;//Goes true when the button on the gamepad is pressed. For alerting airship pilots quickly.
     
     public static DriverStation driverstation;
 	
@@ -326,24 +331,43 @@ public class Robot extends IterativeRobot {
 	 * -Teleop Periodic
 	 * @author Elijah Reeds
 	 */
+	@SuppressWarnings("unused")
 	public static void setLights(){
-		if(RobotState.isDisabled()){
-			lights.FastBlink(255, 0, 0, Range.DriveTrain);// <--- blink all red on disabled
-			lights.FastBlink(255, 0, 0, Range.ShooterIntake);
-			lights.FastBlink(255, 0, 0, Range.Turret);
-		}else if(RobotState.isAutonomous()){
-			lights.Rainbow(); //<--- set all strips rainbow in auto
-		}else if(RobotState.isOperatorControl()){
-			if(Robot.gearIntakeRoller.isGearPresent()){
-				lights.Solid(255, 255, 0, Range.ShooterIntake);//<--- Solid Yellow while gear present
+		if(opWarning){
+			lights.FastBlink(255, 255, 255, Range.DriveTrain);//Kwasmallski! DROP DAT ROPE BOI!
+			lights.FastBlink(255, 255, 255, Range.ShooterIntake);
+			lights.FastBlink(255, 255, 255, Range.Turret);
+		}else{
+			if(pdp.getBatteryVoltage() < LOW_BAT_VOLTAGE && BAT_OVERRIDE){
+				lights.FastBlink(255, 0, 0, Range.DriveTrain);//Light Warning for low bat. FBlink Red.
+				lights.FastBlink(255, 0, 0, Range.ShooterIntake);
+				lights.FastBlink(255, 0, 0, Range.Turret);
 			}else{
-				lights.Fade(255, 0, 0, Range.ShooterIntake);//<--- Fade red while no gear present.
-			}
+				if(RobotState.isDisabled()){
+					if(pdp.getBatteryVoltage() < LOW_BAT_VOLTAGE){
+						lights.FastBlink(255, 0, 0, Range.DriveTrain);//Light Warning for low bat. FBlink Red.
+						lights.FastBlink(255, 0, 0, Range.ShooterIntake);
+						lights.FastBlink(255, 0, 0, Range.Turret);
+					}else{
+						lights.ChaseAll(Range.DriveTrain);// Chase All Colors on disabled.
+						lights.ChaseAll(Range.ShooterIntake);
+						lights.ChaseAll(Range.Turret);
+					}
+				}else if(RobotState.isAutonomous()){
+					lights.Rainbow(); //<--- set all strips rainbow in auto
+				}else if(RobotState.isOperatorControl()){
+					if(Robot.gearIntakeRoller.isGearPresent()){
+						lights.Solid(255, 255, 0, Range.ShooterIntake);//<--- Solid Yellow while gear present
+					}else{
+						lights.Fade(255, 0, 0, Range.ShooterIntake);//<--- Fade red while no gear present.
+					}
 			
-			if(Robot.drivetrainShifter.inLowGear()){
-				lights.ChaseIn(255, 0, 0, Range.DriveTrain);//<--- Chase in red in low gear.
-			}else if(Robot.drivetrainShifter.inHighGear()){
-				lights.ChaseIn(0, 255, 0, Range.DriveTrain);//<--- Chae in green in high gear
+					if(Robot.drivetrainShifter.inLowGear()){
+						lights.ChaseIn(255, 0, 0, Range.DriveTrain);//<--- Chase in red in low gear.
+					}else if(Robot.drivetrainShifter.inHighGear()){
+						lights.ChaseIn(0, 255, 0, Range.DriveTrain);//<--- Chae in green in high gear
+					}
+				}
 			}
 		}
 		

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.I2C;
 public class I2CLights {
 	private I2C i2c;
 	private static I2CLights instance = null;
-	private static final int RANGE_COUNT = 3;
+	public static final int RANGE_COUNT = 3;
 	
 	
 	public enum Pattern {
