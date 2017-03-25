@@ -5,15 +5,17 @@ import org.team2168.RobotMap;
 import edu.wpi.first.wpilibj.I2C;
 
 /**
- *The subsystem for controlling lights.
- *@Author Elijah and Bennett
+ *The Util for controlling lights over I2C to an Arduino.
+ *@Author Elijah and Bennett<--- plz cum bak bbz
  */
 public class I2CLights {
 	private I2C i2c;
 	private static I2CLights instance = null;
 	public static final int RANGE_COUNT = 3;
 	
-	
+	/**A continued pattern of behavior.
+	 * @author Elijah Reeds.
+	 */
 	public enum Pattern {
 		Off (0),
 		Solid (1),
@@ -33,6 +35,9 @@ public class I2CLights {
 		}
 	}
 	
+	/**Out on the range.
+	 * @author	Elijah Reeds
+	 */
 	public enum Range {
 		DriveTrain(0), ShooterIntake(1), Turret(2);
 		private final int val;
@@ -46,13 +51,17 @@ public class I2CLights {
 		}
 	}
     
+	/**
+	 * Don't look at my privates!
+	 */
 	private I2CLights(){
 		i2c = new I2C(RobotMap.I2C_PORT, RobotMap.I2C_ADDRESS);
 	}
 		
 	/**
-     * Singleton constructor for Lights subsystem
+     * Singleton constructor for Lights subsystem.
      * @return singleton instance of Lights subsystem
+     * @author Elijah Reeds.
      */
     public static I2CLights getInstance(){
     	if(instance == null)
@@ -65,7 +74,7 @@ public class I2CLights {
      * @param g Green value between 0 and 255.
      * @param b Blue value between 0 and 255.
      * @param pat Pattern value between 0 and 6.
-     * @param rang Range value between either 1 or 2.
+     * @param rang The range of lights you wish to adress.
      * @author Elijah
      */
     public void writeLED(int r, int g, int b, Pattern pat, int patData, Range range){
@@ -111,7 +120,19 @@ public class I2CLights {
      * @author Elijah
      */
     public void FastBlink(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.Blink, 5,range);
+    	Blink(r, g, b, 5, range);
+    }
+    
+    /**
+     * Great for inducing seizures!
+     * @param r Red value from 0 - 255.
+     * @param g Green value from 0 - 255.
+     * @param b Blue value form 0 -255.
+     * @param range LED range.
+     * @author Elijah
+     */    
+    public void ReallyFastBlink(int r, int g, int b, Range range){
+    	Blink(r, g, b, 10, range);
     }
     
     /**
@@ -123,7 +144,20 @@ public class I2CLights {
      * @author Elijah
      */
     public void SlowBlink(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.Blink, 1, range);
+    	Blink(r, g, b, 1, range);
+    }
+    
+    /**
+     * WARNING: DO NOT USE AROUND WEEPING ANGELS!
+     * @param r Red value from 0 - 255.
+     * @param g Green value from 0 - 255.
+     * @param b Blue value form 0 -255.
+     * @param spd Speed of lights in pain. Ow that hertz!
+     * @param range LED range.
+     * @author Elijah
+     */
+    public void Blink(int r, int g, int b, int spd, Range range){
+    	writeLED(r, g, b, Pattern.Blink, spd, range);
     }
     
     /**
