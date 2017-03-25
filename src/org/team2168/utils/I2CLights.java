@@ -11,17 +11,16 @@ import edu.wpi.first.wpilibj.I2C;
 public class I2CLights {
 	private I2C i2c;
 	private static I2CLights instance = null;
+	public static final int RANGE_COUNT = 3;
+	
 	
 	public enum Pattern {
 		Off (0),
 		Solid (1),
-		FastBlink (2),
-		SlowBlink (3),
-		Fade (4),
-		Chase (5),
-		Rainbow (6),
-		ChaseAll(7),
-		ChaseOut(8);
+		Blink (2),
+		Fade (3),
+		Chase (4),
+		Rainbow (5);
 		
 		private final int val;
 
@@ -35,7 +34,16 @@ public class I2CLights {
 	}
 	
 	public enum Range {
-		Intake, Shooter;
+		DriveTrain(0), ShooterIntake(1), Turret(2);
+		private final int val;
+
+		Range(int val) {
+			this.val = val;
+		}
+
+		public int getVal() {
+			return val;
+		}
 	}
     
 	private I2CLights(){
@@ -60,19 +68,14 @@ public class I2CLights {
      * @param rang Range value between either 1 or 2.
      * @author Elijah
      */
-    public void writeLED(int r, int g, int b, Pattern pat, Range range){
-    	byte[] data = new byte[8];
-    	if(range == Range.Intake){
-    		data[0] = (byte) r;
-    		data[1] = (byte) g;
-    		data[2] = (byte) b;
-    		data[3] = (byte) pat.getVal();
-    	} else {
-    		data[4] = (byte) r;
-    		data[5] = (byte) g;
-    		data[6] = (byte) b;
-    		data[7] = (byte) pat.getVal();
-    	}
+    public void writeLED(int r, int g, int b, Pattern pat, int patData, Range range){
+    	byte[] data = new byte[RANGE_COUNT * 4];
+    	int rangeIn = 4 * range.getVal();
+    	data[0 + rangeIn] = (byte) r;
+		data[1 + rangeIn] = (byte) g;
+		data[2 + rangeIn] = (byte) b;
+		data[3 + rangeIn] = (byte) pat.getVal();
+		data[4 + rangeIn] = (byte) patData;
     	i2c.writeBulk(data);
     }
     
@@ -82,8 +85,9 @@ public class I2CLights {
      * @author Elijah
      */
     public void Off(Range range){
-    	writeLED(0,0,0,Pattern.Off, range);	
+    	writeLED(0,0,0,Pattern.Off, 0, range);	
     }
+    
     
     /**
      * Sets the LED's to a solid color.
@@ -94,7 +98,7 @@ public class I2CLights {
      * @author Elijah
      */
     public void Solid(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.Solid, range);
+    	writeLED(r, g, b, Pattern.Solid, 0, range);
     }
     
     
@@ -107,7 +111,7 @@ public class I2CLights {
      * @author Elijah
      */
     public void FastBlink(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.FastBlink, range);
+    	writeLED(r, g, b, Pattern.Blink, 5,range);
     }
     
     /**
@@ -119,7 +123,7 @@ public class I2CLights {
      * @author Elijah
      */
     public void SlowBlink(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.SlowBlink, range);
+    	writeLED(r, g, b, Pattern.Blink, 1, range);
     }
     
     /**
@@ -131,7 +135,7 @@ public class I2CLights {
      * @author Elijah
      */
     public void Fade(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.Fade, range);
+    	writeLED(r, g, b, Pattern.Fade, 0, range);
     }
     
     /**
@@ -143,7 +147,7 @@ public class I2CLights {
      * @author Elijah
      */
     public void ChaseIn(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.Chase, range);
+    	writeLED(r, g, b, Pattern.Chase, 0, range);
     }
     
     /**
@@ -151,8 +155,8 @@ public class I2CLights {
      * @author Elijah
      */
     public void Rainbow(){
-    	writeLED(0, 0, 0, Pattern.Rainbow, Range.Intake);
-    	writeLED(0, 0, 0, Pattern.Rainbow, Range.Shooter);
+    	writeLED(0, 0, 0, Pattern.Rainbow, 0, Range.ShooterIntake);
+    	writeLED(0, 0, 0, Pattern.Rainbow, 0, Range.DriveTrain);
     }
     
     /**
@@ -160,7 +164,7 @@ public class I2CLights {
      * @param range
      */
     public void ChaseAll(Range range) {
-    	writeLED(0, 0, 0, Pattern.ChaseAll, range);
+    	writeLED(0, 0, 0, Pattern.Chase, 2, range);
     }
     
     /**
@@ -172,6 +176,6 @@ public class I2CLights {
      * @author Elijah
      */
     public void ChaseOut(int r, int g, int b, Range range){
-    	writeLED(r, g, b, Pattern.ChaseOut, range);
+    	writeLED(r, g, b, Pattern.Chase, 1, range);
     }
 }
