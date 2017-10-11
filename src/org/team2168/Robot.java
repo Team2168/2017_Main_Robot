@@ -2,6 +2,9 @@
 package org.team2168;
 
 import org.team2168.subsystems.*;
+
+import java.util.Arrays;
+
 import org.team2168.commands.auto.*;
 import org.team2168.commands.pneumatics.StartCompressor;
 import org.team2168.utils.Debouncer;
@@ -135,6 +138,16 @@ public class Robot extends IterativeRobot {
         
         ConsolePrinter.startThread();
         System.out.println("Robot Done Loading");
+        Thread.setDefaultUncaughtExceptionHandler(
+                new Thread.UncaughtExceptionHandler() {
+                    @Override public void uncaughtException(Thread t, Throwable e) 
+             {
+                        System.out.println(t.getName()+": "+e);
+
+//Write to file, or update dash that an exception occured
+                    }
+                });
+    
     }
     
     /**
@@ -218,9 +231,11 @@ public class Robot extends IterativeRobot {
 		// Check to see if the gyro is drifting, if it is re-initialize it.
 		gyroReinit();
 	}
-
+    boolean errorOnExit = false;
     public void autonomousInit() {
-    	
+    	try {
+    		
+  
     	autoMode = true;
     	
 		matchStarted = true;
@@ -231,19 +246,64 @@ public class Robot extends IterativeRobot {
     	
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
-    }
+    }        catch (Throwable throwable) 
+        { 
+        DriverStation.reportError( "ERROR Unhandled exception: " + throwable.toString() + " at " 
+   + Arrays.toString(throwable.getStackTrace()), false); 
+
+       errorOnExit = true;
+
+//Write to file or update dash that we had a Main Robot Code crash
+//Most likely Robot Will die here, and then try to restart. If not we may need to 
+//force exit with exit(1), to force a code restart. 
+}  
+   finally 
+   { 
+     // startCompetition never returns unless exception occurs.... 
+      System.err.println("WARNING: Robots don't quit!"); 
+      if (errorOnExit) { 
+        System.err 
+            .println("---> The startCompetition() method (or methods called by it) should have " 
+                + "handled the exception above."); 
+      } else { 
+        System.err.println("---> Unexpected return from startCompetition() method."); 
+      
+   }}}
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	try {
     	autoMode = true;
         Scheduler.getInstance().run();
-        
-    }
+    	}catch (Throwable throwable) 
+        { 
+             DriverStation.reportError( "ERROR Unhandled exception: " + throwable.toString() + " at " 
+        + Arrays.toString(throwable.getStackTrace()), false); 
+     
+            errorOnExit = true;
+
+    //Write to file or update dash that we had a Main Robot Code crash
+    //Most likely Robot Will die here, and then try to restart. If not we may need to 
+    //force exit with exit(1), to force a code restart. 
+     }  
+        finally 
+        { 
+          // startCompetition never returns unless exception occurs.... 
+           System.err.println("WARNING: Robots don't quit!"); 
+           if (errorOnExit) { 
+             System.err 
+                 .println("---> The startCompetition() method (or methods called by it) should have " 
+                     + "handled the exception above."); 
+           } else { 
+             System.err.println("---> Unexpected return from startCompetition() method."); 
+           
+        }}}  
+    
 
     public void teleopInit() {
-    	
+    	try {
     	autoMode = false;
     	
 		matchStarted = true;
@@ -257,7 +317,29 @@ public class Robot extends IterativeRobot {
 
     	// Select the control style
         controlStyle = (int) controlStyleChooser.getSelected();
-    }
+    }        catch (Throwable throwable) 
+        { 
+        DriverStation.reportError( "ERROR Unhandled exception: " + throwable.toString() + " at " 
+   + Arrays.toString(throwable.getStackTrace()), false); 
+
+       errorOnExit = true;
+
+//Write to file or update dash that we had a Main Robot Code crash
+//Most likely Robot Will die here, and then try to restart. If not we may need to 
+//force exit with exit(1), to force a code restart. 
+}  
+   finally 
+   { 
+     // startCompetition never returns unless exception occurs.... 
+      System.err.println("WARNING: Robots don't quit!"); 
+      if (errorOnExit) { 
+        System.err 
+            .println("---> The startCompetition() method (or methods called by it) should have " 
+                + "handled the exception above."); 
+      } else { 
+        System.err.println("---> Unexpected return from startCompetition() method."); 
+      
+   }}}
     
     public static int getControlStyleInt() {
     	return (int) controlStyleChooser.getSelected();
@@ -266,18 +348,47 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
-    	
-    	autoMode = false;
-        Scheduler.getInstance().run();
-        
-        controlStyle = (int) controlStyleChooser.getSelected();
-        
-        SmartDashboard.putNumber("GunStyleXValueMakingThisLongSoWeCanFindIt", Robot.oi.driverJoystick.getLeftStickRaw_X());
-        SmartDashboard.putNumber("GunStyleXInterpolatedValueMakingThisLongSoWeCanFindIt", Robot.drivetrain.getGunStyleXValue());
-        
+   
     
-    }
+ 
+    
+    public void teleopPeriodic() 
+    { 
+        try
+        {
+      	autoMode = false; 
+           Scheduler.getInstance().run(); 
+             
+          controlStyle = (int) controlStyleChooser.getSelected(); 
+             
+           SmartDashboard.putNumber("GunStyleXValueMakingThisLongSoWeCanFindIt", Robot.oi.driverJoystick.getLeftStickRaw_X()); 
+            SmartDashboard.putNumber("GunStyleXInterpolatedValueMakingThisLongSoWeCanFindIt", Robot.drivetrain.getGunStyleXValue()); 
+             }
+        catch (Throwable throwable) 
+        { 
+             DriverStation.reportError( "ERROR Unhandled exception: " + throwable.toString() + " at " 
+        + Arrays.toString(throwable.getStackTrace()), false); 
+     
+            errorOnExit = true;
+
+    //Write to file or update dash that we had a Main Robot Code crash
+    //Most likely Robot Will die here, and then try to restart. If not we may need to 
+    //force exit with exit(1), to force a code restart. 
+     }  
+        finally 
+        { 
+          // startCompetition never returns unless exception occurs.... 
+           System.err.println("WARNING: Robots don't quit!"); 
+           if (errorOnExit) { 
+             System.err 
+                 .println("---> The startCompetition() method (or methods called by it) should have " 
+                     + "handled the exception above."); 
+           } else { 
+             System.err.println("---> Unexpected return from startCompetition() method."); 
+           
+        }}}
+ 
+    
     
     /**
      * This function is called periodically during test mode

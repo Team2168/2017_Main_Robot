@@ -128,10 +128,10 @@ public class OI {
 		
 		
 		//Ball Intake Assembly
-		operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveIntakeWithConstant(1));
-		operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveAgitatorWithConstant(1));
-		operatorJoystick.ButtonLeftTrigger().whenPressed(new LowerBallIntakeArm());
-		operatorJoystick.ButtonLeftBumper().whenReleased(new RaiseBallIntakeArm());
+		//operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveIntakeWithConstant(1));
+		//operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveAgitatorWithConstant(1));
+		//operatorJoystick.ButtonLeftTrigger().whenPressed(new LowerBallIntakeArm()); Actuates in the beginning
+		//operatorJoystick.ButtonLeftBumper().whenReleased(new RaiseBallIntakeArm());
 		
 		//Climber
 		operatorJoystick.ButtonBack().whileHeld(new DriveClimberWithConstant(1.0));

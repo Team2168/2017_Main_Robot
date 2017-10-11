@@ -34,7 +34,7 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE_MOTOR_2 = 1;
 	public static final int LEFT_DRIVE_MOTOR_1 = 2;
 	public static final int LEFT_DRIVE_MOTOR_2 = 3;	
-	public static final int BALL_INTAKE_MOTOR = 4;
+	public static final int AGITATOR_WHEEL= 4;
 	public static final int CLIMBER_MOTOR_LEFT = 5;
 	public static final int CLIMBER_MOTOR_RIGHT = 6;
 	public static final int SHOOTER_WHEEL_LEFT = 7;
@@ -63,7 +63,7 @@ public class RobotMap {
 	public static final int TURRET_MOTOR = 11;
 	public static final int GEAR_INTAKE_MOTOR = 12;
 	public static final int INDEXER_WHEEL = 13;
-	public static final int AGITATOR_WHEEL = 14;
+	public static final int BALL_INTAKE_MOTOR = 14;
 	public static final int TURRET_LIMIT_SWITCH_RIGHT = 19; //PWM 15 on board
 	public static final int TURRET_LIMIT_SWITCH_LEFT = 20; //PWM 16 on board
 	public static final int SHOOTER_ENCODER_A = 21; //PWM 17 on board
