@@ -234,7 +234,7 @@ public class RobotMap {
 	 *                       CLIMBER PARAMETERS
 	 *************************************************************************/
 
-	public static final boolean CLIMB_MOTOR_REVERSE_LEFT = true;
+	public static final boolean CLIMB_MOTOR_REVERSE_LEFT = false;
 	public static final boolean CLIMB_MOTOR_REVERSE_RIGHT = false;
 	public static final double CLIMBER_MOTOR_SPEED = 0.8;
 	

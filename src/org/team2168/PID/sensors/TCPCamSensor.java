@@ -331,14 +331,14 @@ public double getTargetDistance() {
 	
 	
 	
-	if (dataReceived[2].compareToIgnoreCase("inf") != 0 &&
-			dataReceived[2].compareToIgnoreCase("-inf") != 0 &&
-			dataReceived[2].compareToIgnoreCase("+inf") != 0)
-	{
-		double message = Double.valueOf(dataReceived[2]).doubleValue();
-		return message;
-	}
-	else
+//	if (dataReceived[2].compareToIgnoreCase("inf") != 0 &&
+//			dataReceived[2].compareToIgnoreCase("-inf") != 0 &&
+//			dataReceived[2].compareToIgnoreCase("+inf") != 0)
+//	{
+//		double message = Double.valueOf(dataReceived[2]).doubleValue();
+//		return message;
+//	}
+//	else
 		return 0;
 		
 }
