@@ -5,6 +5,7 @@ import org.team2168.RobotMap;
 import org.team2168.commands.ballIntake.DriveIntakeWithJoystick;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -12,12 +13,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BallIntakeRoller extends Subsystem {
 
-	private static Spark intakeMotor;
+	private static Talon intakeMotor;
 	
 	private static BallIntakeRoller instance = null;
 	
 	private BallIntakeRoller() {
-		intakeMotor = new Spark(RobotMap.BALL_INTAKE_MOTOR);
+		intakeMotor = new Talon(RobotMap.BALL_INTAKE_MOTOR);
 	}
 	
 	public static BallIntakeRoller getInstance(){

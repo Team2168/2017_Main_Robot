@@ -99,9 +99,10 @@ public class OI {
 		//////////////Operator Joystick//////////////
 
 		
-		//Emergency Gear Pickup
-		operatorJoystick.ButtonX().whenPressed(new AutomaticGearIntakeDANGEROUS());
-		operatorJoystick.ButtonX().whenReleased(new RaiseGearArm());
+		//Red hopper shot angle
+		operatorJoystick.ButtonX().whenPressed(new SetHoodToAngle(101.16));
+		operatorJoystick.ButtonX().whenPressed(new RotateTurretAnglePIDZZZ(79.7, 0.7, 0.2, 0.2,true));
+		operatorJoystick.ButtonX().whenPressed(new DriveShooterPIDSpeed(3000));
 
 		//Blue Hopper Shot Angle
 		operatorJoystick.ButtonY().whenPressed(new SetHoodToAngle(101.16));
@@ -111,11 +112,11 @@ public class OI {
 		//Fire
 		operatorJoystick.ButtonA().whileHeld(new DriveElevatorWithConstant(0.45));
 		operatorJoystick.ButtonA().whileHeld(new DriveIndexerWithConstant(0.75));
-		operatorJoystick.ButtonA().whileHeld(new DriveIntakeWithConstant(0.75));
-		operatorJoystick.ButtonA().whileHeld(new DriveAgitatorWithConstant(0.75));
+		operatorJoystick.ButtonA().whileHeld(new DriveIntakeWithConstant(-0.65));
+		operatorJoystick.ButtonA().whileHeld(new DriveAgitatorWithConstant(-1.0));
 
 		
-		//Kill Shooter
+		//Kill Shooter\[]
 		operatorJoystick.ButtonB().whenPressed(new ShooterPIDPause());
 		operatorJoystick.ButtonB().whenPressed(new DriveTurretWithConstant(0.0));
 		
@@ -127,7 +128,7 @@ public class OI {
 		
 		
 		//Gear Assembly
-		operatorJoystick.ButtonRightTrigger().whileHeld(new AutomaticGearIntake());
+		operatorJoystick.ButtonRightTrigger().whileHeld(new AutomaticGearIntakeDANGEROUS());
 		operatorJoystick.ButtonRightTrigger().whenReleased(new RaiseGearArm());
 		operatorJoystick.ButtonRightBumper().whenPressed(new LowerGearArmDANGEROUS());
 		operatorJoystick.ButtonRightBumper().whenReleased(new RaiseGearArm());
@@ -142,19 +143,21 @@ public class OI {
 		
 		//Ball Intake Assembly
 		operatorJoystick.ButtonLeftTrigger().whenPressed(new LowerBallIntakeArm());
-//		operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveIntakeWithConstant(1.0));
-//		operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveAgitatorWithConstant(1.0));
+		operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveIntakeWithConstant(-1.0));
+		operatorJoystick.ButtonLeftTrigger().whileHeld(new DriveAgitatorWithConstant(1.0));
+		
 		operatorJoystick.ButtonLeftBumper().whenReleased(new RaiseBallIntakeArm());
 //		operatorJoystick.ButtonLeftBumper().whileHeld(new DriveIntakeWithConstant(-1.0));
-//		operatorJoystick.ButtonLeftBumper().whileHeld(new DriveAgitatorWithConstant(-1.0));
+		operatorJoystick.ButtonLeftBumper().whileHeld(new DriveAgitatorWithConstant(-1.0));
 		
 		//Climber
 		operatorJoystick.ButtonBack().whileHeld(new DriveClimberWithConstant(1.0));
 		   
 		//Boiler Shot Angle
 		operatorJoystick.ButtonLeftStick().whenPressed(new SetHoodToAngle(45.0));
-		operatorJoystick.ButtonLeftStick().whenPressed(new RotateTurretAnglePIDZZZ(0.0, 0.7, 0.2, 0.2));
-		operatorJoystick.ButtonLeftStick().whenPressed(new DriveShooterPIDSpeed(3600));
+		
+		operatorJoystick.ButtonLeftStick().whenPressed(new TurretToAnglePIDZZZCameraWithPot(0, 0.7, 0.1, 0.2));
+		//operatorJoystick.ButtonLeftStick().whenPressed(new DriveShooterPIDSpeed(3600));
 		
 		//Toggle Hopper
 		//operatorJoystick.ButtonY().whileHeld(new ToggleBallIntakeArm());
@@ -232,8 +235,8 @@ public class OI {
 		//////////////Test Joystick//////////////
 		testJoystick.ButtonA().whileHeld(new DriveIntakeWithConstant(1.0));
 		testJoystick.ButtonB().whileHeld(new DriveIntakeWithConstant(-1.0));
-		testJoystick.ButtonX().whileHeld(new DriveClimberWithConstant(1.0));
-		testJoystick.ButtonY().whileHeld(new DriveClimberWithConstant(-1.0));
+		testJoystick.ButtonX().whileHeld(new DriveAgitatorWithConstant(1.0));
+		testJoystick.ButtonY().whileHeld(new DriveAgitatorWithConstant(-1.0));
 		testJoystick.ButtonLeftDPad().whileHeld(new DriveElevatorWithConstant(1.0));
 		testJoystick.ButtonRightDPad().whileHeld(new DriveElevatorWithConstant(-1.0));
 		testJoystick.ButtonRightBumper().whileHeld(new DriveGearIntakeRollerWithConstant(1.0));

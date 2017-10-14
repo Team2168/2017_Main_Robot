@@ -14,12 +14,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveShooterPIDSpeed extends Command {
 	
 	private double setPoint;
+	private double lastControlOut;
+	private double count;
 
     public DriveShooterPIDSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.shooterWheel);
+    	this.lastControlOut = 0;
     	this.setPoint = 0;
+    	this.count = 0;
     }
     
    public DriveShooterPIDSpeed(double setPoint){
@@ -32,13 +36,29 @@ public class DriveShooterPIDSpeed extends Command {
 	protected void initialize() {
 		//Robot.shooter.shooterSpeedController.reset();
 		Robot.shooterWheel.shooterSpeedController.Enable();
+		count = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
 	protected void execute() {
     	if (setPoint != 0)
     		Robot.shooterWheel.shooterSpeedController.setSetPoint(setPoint);
-    	Robot.shooterWheel.setShooterSpeed(Robot.shooterWheel.shooterSpeedController.getControlOutput());
+    	
+    	if (Robot.shooterWheel.shooterSpeedController.isFinished())
+    		count = 1;
+    	
+    	if (count==0)
+    	{
+    		Robot.shooterWheel.setShooterSpeed(Robot.shooterWheel.shooterSpeedController.getControlOutput());
+    		this.lastControlOut = Robot.shooterWheel.shooterSpeedController.getControlOutput();
+    	}
+    	else
+    	{
+    		Robot.shooterWheel.setShooterSpeed(lastControlOut);
+    		System.out.println("PID Constant Out");
+    	}
+    		
+    		
     	
     }
 
