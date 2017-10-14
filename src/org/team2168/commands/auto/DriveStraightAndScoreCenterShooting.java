@@ -14,6 +14,7 @@ import org.team2168.commands.indexer.DriveIndexerWithConstant;
 import org.team2168.commands.shooter.SetHoodToAngle;
 import org.team2168.commands.shooter.PIDCommands.DriveShooterPIDSpeed;
 import org.team2168.commands.shooter.PIDCommands.WaitForShooterPIDToFinish;
+import org.team2168.commands.turret.PIDCommands.RotateTurretAnglePIDZZZ;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -37,7 +38,8 @@ public class DriveStraightAndScoreCenterShooting extends CommandGroup {
     	//Prepare for ripum gathering
     	addSequential(new EnableFlashlight());
     	addSequential(new LowerBallIntakeArm());
-    	addParallel(new SetHoodToAngle(129.0),2);
+    	addParallel(new RotateTurretAnglePIDZZZ(65.0, 0.7, 0.2, 0.2,true));
+    	addParallel(new SetHoodToAngle(149.0),2); //was 129 before
     	addParallel(new DriveShooterPIDSpeed(6000));
     	//Gather the ripums
     	addSequential(new WaitForShooterPIDToFinish());
@@ -45,7 +47,7 @@ public class DriveStraightAndScoreCenterShooting extends CommandGroup {
     	//Precipitate
     	addParallel(new DriveElevatorWithConstant(0.45));
     	addParallel(new DriveIndexerWithConstant(0.75));
-    	addParallel(new DriveIntakeWithConstant(0.75));
-    	addParallel(new DriveAgitatorWithConstant(0.75));
+    	addParallel(new DriveIntakeWithConstant(-0.75));
+    	addParallel(new DriveAgitatorWithConstant(-0.75));
     }
 }
