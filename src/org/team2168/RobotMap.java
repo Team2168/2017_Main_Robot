@@ -139,7 +139,7 @@ public class RobotMap {
 	private static final int DRIVE_PULSE_PER_ROTATION = 256; //encoder ticks per rotation
 	//TODO find ratio
 	private static final double DRIVE_GEAR_RATIO = 1.0/1.0; //ratio between wheel over encoder
-	private static final double DRIVE_WHEEL_DIAMETER = 6;
+	private static final double DRIVE_WHEEL_DIAMETER = 4;
 	public static final int DRIVE_ENCODER_PULSE_PER_ROT = (int) (DRIVE_PULSE_PER_ROTATION * DRIVE_GEAR_RATIO); //pulse per rotation * gear ratio
 	public static final double DRIVE_ENCODER_DIST_PER_TICK = (Math.PI * DRIVE_WHEEL_DIAMETER / DRIVE_ENCODER_PULSE_PER_ROT);
 	public static final CounterBase.EncodingType DRIVE_ENCODING_TYPE = CounterBase.EncodingType.k4X; //count rising and falling edges on
@@ -147,8 +147,8 @@ public class RobotMap {
 	public static final AverageEncoder.SpeedReturnType DRIVE_SPEED_RETURN_TYPE = AverageEncoder.SpeedReturnType.FPS;
 	public static final int DRIVE_ENCODER_MIN_RATE = 0;
 	public static final int DRIVE_ENCODER_MIN_PERIOD = 1;
-	public static final boolean LEFT_DRIVE_TRAIN_ENCODER_REVERSE = true;
-	public static final boolean RIGHT_DRIVE_TRAIN_ENCODER_REVERSE = true;
+	public static final boolean LEFT_DRIVE_TRAIN_ENCODER_REVERSE = false;
+	public static final boolean RIGHT_DRIVE_TRAIN_ENCODER_REVERSE = false;
 	public static final boolean LEFT_DRIVE_TRAIN_ENCODER_REVERSE_PBOT = true;
 	public static final boolean RIGHT_DRIVE_TRAIN_ENCODER_REVERSE_PBOT = true;
 	public static final int DRIVE_AVG_ENCODER_VAL = 5;
