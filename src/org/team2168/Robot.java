@@ -320,7 +320,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Hopper and Shoot Blue", new CollectHopperAndShootBlue());
         autoChooser.addObject("Score Gear Right and Cross", new ScoreGearRightAndCrossField());
         autoChooser.addObject("Score Gear Left and Cross", new ScoreGearLeftAndCrossField());
-        autoChooser.addObject("2018 right switch from center", new DriveToRightSwitch());
+        autoChooser.addObject("2018 Right Switch From Center", new DriveToRightSwitch());
         //  autoChooser.addObject("Do Something", new DoSomething());
     }
     
