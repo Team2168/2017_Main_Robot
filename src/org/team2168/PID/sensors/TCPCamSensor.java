@@ -231,12 +231,12 @@ public class TCPCamSensor implements PIDSensorInterface{
 
 						messageOut = String.valueOf(matchStart) + " " 
 								+ count + " " 
-								+ SmartDashboard.getInt(getName() +"_MinH_set", getHueMin()) + " " 
-								+ SmartDashboard.getInt(getName() +"_MaxH_set", getHueMax()) + " " 
-								+ SmartDashboard.getInt(getName() +"_MinS_set", getSaturationMin()) + " " 
-								+ SmartDashboard.getInt(getName() +"_MaxS_set", getSaturationMax()) + " " 
-								+ SmartDashboard.getInt(getName() +"_MinV_set", getValueMin()) + " " 
-								+ SmartDashboard.getInt(getName() +"_MaxV_set", getValueMax())
+								+ SmartDashboard.getNumber(getName() +"_MinH_set", getHueMin()) + " " 
+								+ SmartDashboard.getNumber(getName() +"_MaxH_set", getHueMax()) + " " 
+								+ SmartDashboard.getNumber(getName() +"_MinS_set", getSaturationMin()) + " " 
+								+ SmartDashboard.getNumber(getName() +"_MaxS_set", getSaturationMax()) + " " 
+								+ SmartDashboard.getNumber(getName() +"_MinV_set", getValueMin()) + " " 
+								+ SmartDashboard.getNumber(getName() +"_MaxV_set", getValueMax())
 								+ " \n";
 
 						System.out.println("Sending Match Start: " + messageOut);

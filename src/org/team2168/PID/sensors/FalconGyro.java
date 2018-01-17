@@ -252,10 +252,10 @@ public class FalconGyro extends SensorBase implements PIDSensorInterface, PIDSou
 	 * 
 	 * @param type the type of output to provide to the PID controller (rate/displacement).
 	 */
-	public void setPIDSourceType(PIDSourceType type) {
-		BoundaryException.assertWithinBounds(type.value, 1, 2);
-		m_pidSource = type;
-	}
+	public void setPIDSourceType(PIDSourceType pidSource) {
+	    m_pidSource = pidSource;
+	  }
+
 
 	/**
 	 * Get the PID source type.
