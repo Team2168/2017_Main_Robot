@@ -525,6 +525,13 @@ public class Drivetrain extends Subsystem {
 	public void stopGyroCalibrating() {
 		gyroSPI.stopCalibrating();
 	}
+	
+	/**
+	 * Call to start an active gyro calibration sequence.
+	 */
+	public void startGyroCalibrating() {
+		gyroSPI.startCalibrating();
+	}
     
     /**
      * Returns the last commanded voltage of left Motor 1

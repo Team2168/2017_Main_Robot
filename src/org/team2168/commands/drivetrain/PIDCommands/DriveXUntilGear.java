@@ -6,7 +6,7 @@ import org.team2168.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class DriveXDistance extends Command{
+public class DriveXUntilGear extends Command{
 	private double distanceGoal;
 	private double speed;
 	private double endDistance;
@@ -28,7 +28,7 @@ public class DriveXDistance extends Command{
 	 * Move the drivetrain forward the specified distance.
 	 * @param distance in feet
 	 */
-	public DriveXDistance(double distance) {
+	public DriveXUntilGear(double distance) {
 		requires(Robot.drivetrain);
 		this.distanceGoal = distance;
 		this.speed = RobotMap.AUTO_NORMAL_SPEED;
@@ -36,7 +36,7 @@ public class DriveXDistance extends Command{
 		this.lastRotateOutput = 0;
 	}
 
-	public DriveXDistance(double distance, double speed) {
+	public DriveXUntilGear(double distance, double speed) {
 		this(distance);
 		this.speed = speed;
 	}
@@ -46,7 +46,7 @@ public class DriveXDistance extends Command{
 	//	this.powerShift = powerShift;
 	//}
 	
-	public DriveXDistance(double distance, double speed, double error) {
+	public DriveXUntilGear(double distance, double speed, double error) {
 		this(distance, speed);
 		this.error = error;
 	}
@@ -104,10 +104,6 @@ public class DriveXDistance extends Command{
 
 	protected void execute() {
 
-		//Set Min as minimum voltage to drive mechanims based on emperical measurements. Should account for battery dipping. Calculate Motor controller %
-		Robot.drivetrain.driveTrainPosController.setMinPosOutput(RobotMap.DRIVE_TRAIN_MIN_FWD_VOLTAGE/Robot.pdp.getBatteryVoltage());
-		Robot.drivetrain.driveTrainPosController.setMinNegOutput(-RobotMap.DRIVE_TRAIN_MIN_FWD_VOLTAGE/Robot.pdp.getBatteryVoltage());
-		
 		lastRotateOutput = Robot.drivetrain.rotateDriveStraightController.getControlOutput();
 		double headingCorrection = (Robot.drivetrain.rotateDriveStraightController.getControlOutput()) ;
 
@@ -122,7 +118,7 @@ public class DriveXDistance extends Command{
 	}
 
 	protected boolean isFinished() {
-		return Robot.drivetrain.driveTrainPosController.isFinished();
+		return Robot.drivetrain.driveTrainPosController.isFinished() || Robot.gearIntakeRoller.isGearPresent();
 	}
 
 	protected void end() {

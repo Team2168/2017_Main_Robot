@@ -80,7 +80,10 @@ public class RotateXDistancePIDZZZ extends Command {
     // Called repeatedly when this Command is scheduled to run
     
 	protected void execute() {
-		
+
+		//Set Min as minimum voltage to drive mechanims based on emperical measurements. Should account for battery dipping. Calculate Motor controller %
+		Robot.drivetrain.rotateController.setMinPosOutput(RobotMap.DRIVE_TRAIN_MIN_ROT_CLOCKWISE_VOLTAGE/Robot.pdp.getBatteryVoltage());
+		Robot.drivetrain.rotateController.setMinNegOutput(-RobotMap.DRIVE_TRAIN_MIN_ROT_COUNTCLOCKWISE_VOLTAGE/Robot.pdp.getBatteryVoltage());
 		Robot.drivetrain.tankDrive(Robot.drivetrain.rotateController.getControlOutput(),-Robot.drivetrain.rotateController.getControlOutput());
 	
 		

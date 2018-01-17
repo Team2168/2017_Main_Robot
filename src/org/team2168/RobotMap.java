@@ -139,7 +139,7 @@ public class RobotMap {
 	private static final int DRIVE_PULSE_PER_ROTATION = 256; //encoder ticks per rotation
 	//TODO find ratio
 	private static final double DRIVE_GEAR_RATIO = 1.0/1.0; //ratio between wheel over encoder
-	private static final double DRIVE_WHEEL_DIAMETER = 4;
+	private static final double DRIVE_WHEEL_DIAMETER = 3.89;
 	public static final int DRIVE_ENCODER_PULSE_PER_ROT = (int) (DRIVE_PULSE_PER_ROTATION * DRIVE_GEAR_RATIO); //pulse per rotation * gear ratio
 	public static final double DRIVE_ENCODER_DIST_PER_TICK = (Math.PI * DRIVE_WHEEL_DIAMETER / DRIVE_ENCODER_PULSE_PER_ROT);
 	public static final CounterBase.EncodingType DRIVE_ENCODING_TYPE = CounterBase.EncodingType.k4X; //count rising and falling edges on
@@ -167,7 +167,7 @@ public class RobotMap {
 	private static final int SHOOTER_PULSE_PER_ROTATION = 256; //encoder ticks per rotation
 	//TODO find ratio
 	private static final double SHOOTER_GEAR_RATIO = 1.0/1.0; //ratio between wheel over encoder
-	private static final double SHOOTER_WHEEL_DIAMETER = 4;
+	private static final double SHOOTER_WHEEL_DIAMETER = 4.0;
 	public static final int SHOOTER_ENCODER_PULSE_PER_ROT = (int) (SHOOTER_PULSE_PER_ROTATION * SHOOTER_GEAR_RATIO); //pulse per rotation * gear ratio
 	public static final double SHOOTER_ENCODER_DIST_PER_TICK = (Math.PI * SHOOTER_WHEEL_DIAMETER / SHOOTER_ENCODER_PULSE_PER_ROT);
 	public static final CounterBase.EncodingType SHOOTER_ENCODING_TYPE = CounterBase.EncodingType.k1X; //count only the rising edge
@@ -286,6 +286,13 @@ public class RobotMap {
 	//period to run PID loops on drive train
 		public static final long DRIVE_TRAIN_PID_PERIOD = 20;//70ms loop
 		public static final int DRIVE_TRAIN_PID_ARRAY_SIZE = 30;
+		
+		
+		public static final double DRIVE_TRAIN_MIN_FWD_VOLTAGE = 1.8;//volts
+		public static final double DRIVE_TRAIN_MIN_RVD_VOLTAGE = 1.2;//volts
+		
+		public static final double DRIVE_TRAIN_MIN_ROT_CLOCKWISE_VOLTAGE = 3.5;//volts
+		public static final double DRIVE_TRAIN_MIN_ROT_COUNTCLOCKWISE_VOLTAGE = 3.5;//volts
 
 		//PID Gains for Left & Right Speed and Position
 		//Bandwidth =
@@ -302,6 +309,7 @@ public class RobotMap {
 		public static final double DRIVE_TRAIN_LEFT_POSITION_I = 0.0001412646174233;
 		public static final double DRIVE_TRAIN_LEFT_POSITION_D = 0.0074778888124088;
 
+		//Drive Straight Controller Gains
 		public static final double DRIVE_TRAIN_RIGHT_POSITION_P = 0.25;
 		public static final double DRIVE_TRAIN_RIGHT_POSITION_I = 0.0001412646174233;
 		public static final double DRIVE_TRAIN_RIGHT_POSITION_D = 0.0074778888124088;
@@ -319,7 +327,7 @@ public class RobotMap {
 		public static final double ROTATE_POSITION_CAMERA_MAX = 0.28;
 		public static final double ROTATE_POSITION_CAMERA_MIN = 0.15;
 		
-		public static final double ROTATE_POSITION_P_Drive_Straight = 0.045;
+		public static final double ROTATE_POSITION_P_Drive_Straight = 0.055; //0.045 comp
 		public static final double ROTATE_POSITION_I_Drive_Straight = 0.001;
 		public static final double ROTATE_POSITION_D_Drive_Straight = 0.0064778888124088;
 		

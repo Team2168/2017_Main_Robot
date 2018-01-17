@@ -139,6 +139,14 @@ public class ADXRS453Gyro implements PIDSensorInterface {
 	public final void stopCalibrating() {
 		stopCalibrating = true;
 	}
+	
+	/**
+	 * Stop the calibration sequence prematurely.
+	 * e.g. if the match is starting
+	 */
+	public final void startCalibrating() {
+		stopCalibrating = false;
+	}
 
 	/**
 	 * Zero the gyro heading.

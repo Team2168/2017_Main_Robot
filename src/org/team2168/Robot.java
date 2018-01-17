@@ -202,6 +202,9 @@ public class Robot extends IterativeRobot {
     public void disabledInit(){
     		autoMode = false;
     		matchStarted = false;
+    		drivetrain.startGyroCalibrating();
+    		drivetrain.calibrateGyro();
+            
     }
     
 	public void disabledPeriodic() {
@@ -321,6 +324,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Score Gear Right and Cross", new ScoreGearRightAndCrossField());
         autoChooser.addObject("Score Gear Left and Cross", new ScoreGearLeftAndCrossField());
         autoChooser.addObject("2018 Right Switch From Center", new DriveToRightSwitch());
+        autoChooser.addObject("2018 Left Switch From Center", new DriveToLeftSwitch());
         //  autoChooser.addObject("Do Something", new DoSomething());
     }
     

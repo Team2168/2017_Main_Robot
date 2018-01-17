@@ -248,7 +248,10 @@ public class OI {
 		
 		//////////////PID Test Joystick//////////////
 //		pidTestJoystick.ButtonA().whenPressed(new DriveStraightAndScoreCenter());
-//		pidTestJoystick.ButtonB().whenPressed(new RotateXDistancePIDZZZ(25, 0.8, 0.25, 1));
+		pidTestJoystick.ButtonY().whenPressed(new RotateXDistancePIDZZZ(25, 0.8, 0.20, 0.1));
+		pidTestJoystick.ButtonX().whenPressed(new RotateXDistancePIDZZZ(10, 0.8, 0.20, 0.1));
+		pidTestJoystick.ButtonA().whenPressed(new RotateXDistancePIDZZZ(-10, 0.8, 0.20, 0.1));
+		pidTestJoystick.ButtonB().whenPressed(new RotateXDistancePIDZZZ(-25, 0.8, 0.20, 0.1));
 //		pidTestJoystick.ButtonX().whenPressed(new RotateXDistancePIDZZZCameraWithGyro(0, RobotMap.ROTATE_POSITION_CAMERA_MAX, RobotMap.ROTATE_POSITION_CAMERA_MIN, 0.2));
 //		pidTestJoystick.ButtonY().whenPressed(new DriveStraightAndScoreRight());
 		//Gear Assembly
@@ -258,26 +261,26 @@ public class OI {
 //		pidTestJoystick.ButtonRightBumper().whenReleased(new RaiseGearArm());
 		
 		//PIDJoystick
-		//Turret to target with camera (Y)
-		pidTestJoystick.ButtonY().whenPressed(new EnableTurretAnglePIDZZZ(0, 0.7, 0.1, 0.2,true));
-
-		//Turret to 20 off target with camera (X)
-		pidTestJoystick.ButtonX().whenPressed(new EnableTurretAnglePIDZZZ(60, 0.7, 0.1, 0.2,true));
-		
-		//Turret -20 off target with camera (A)
-		pidTestJoystick.ButtonA().whenPressed(new EnableTurretAnglePIDZZZ(-60, 0.7, 0.1, 0.2,true));
-		
-		//Toggle ball intake (Right Bumper)
-		pidTestJoystick.ButtonRightBumper().whileHeld(new ToggleBallIntakeArm());
-		
-		//Turret (B)
-		pidTestJoystick.ButtonB().whenPressed(new TurretToAnglePIDZZZCameraWithPot(0, 0.7, 0.1, 0.2));
-		
-		//Turret movement
-		pidTestJoystick.ButtonRightDPad().whileHeld(new DriveTurretWithConstant(RobotMap.TURRET_MAX_DRIVE));
-		pidTestJoystick.ButtonLeftDPad().whileHeld(new DriveTurretWithConstant(-RobotMap.TURRET_MAX_DRIVE));
-		pidTestJoystick.ButtonUpDPad().whileHeld(new DriveHoodUpWithButton());
-		pidTestJoystick.ButtonDownDPad().whileHeld(new DriveHoodDownWithButton());
+//		//Turret to target with camera (Y)
+//		pidTestJoystick.ButtonY().whenPressed(new EnableTurretAnglePIDZZZ(0, 0.7, 0.1, 0.2,true));
+//
+//		//Turret to 20 off target with camera (X)
+//		pidTestJoystick.ButtonX().whenPressed(new EnableTurretAnglePIDZZZ(60, 0.7, 0.1, 0.2,true));
+//		
+//		//Turret -20 off target with camera (A)
+//		pidTestJoystick.ButtonA().whenPressed(new EnableTurretAnglePIDZZZ(-60, 0.7, 0.1, 0.2,true));
+//		
+//		//Toggle ball intake (Right Bumper)
+//		pidTestJoystick.ButtonRightBumper().whileHeld(new ToggleBallIntakeArm());
+//		
+//		//Turret (B)
+//		pidTestJoystick.ButtonB().whenPressed(new TurretToAnglePIDZZZCameraWithPot(0, 0.7, 0.1, 0.2));
+//		
+//		//Turret movement
+//		pidTestJoystick.ButtonRightDPad().whileHeld(new DriveTurretWithConstant(RobotMap.TURRET_MAX_DRIVE));
+//		pidTestJoystick.ButtonLeftDPad().whileHeld(new DriveTurretWithConstant(-RobotMap.TURRET_MAX_DRIVE));
+//		pidTestJoystick.ButtonUpDPad().whileHeld(new DriveHoodUpWithButton());
+//		pidTestJoystick.ButtonDownDPad().whileHeld(new DriveHoodDownWithButton());
 		
 
 		//pidTestJoystick.ButtonStart().whenPressed(new RotateXDistancePIDZZZCameraWithGyro(0, RobotMap.ROTATE_POSITION_CAMERA_MAX, RobotMap.ROTATE_POSITION_CAMERA_MIN, 0.5));
