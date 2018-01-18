@@ -1,10 +1,11 @@
-//FIXME Outputs neg val instead of pos
-
 package org.team2168.PID.trajectory;
-
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+//FIXME Outputs neg val instead of pos
+
+
+
 
 public class TrajectoryFollower {
 
@@ -127,3 +128,4 @@ public class TrajectoryFollower {
 	    return profile_.getNumSegments();
 	  }
 }
+

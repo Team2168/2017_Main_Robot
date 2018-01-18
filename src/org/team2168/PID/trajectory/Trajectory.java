@@ -1,6 +1,11 @@
 package org.team2168.PID.trajectory;
 
-
+/**
+ * Implementation of a Trajectory using arrays as the underlying storage
+ * mechanism.
+ *
+ * @author Jared341
+ */
 public class Trajectory {
   
   public static class Pair {
@@ -78,7 +83,7 @@ public class Trajectory {
       } else {
         Segment segment = new Segment(segments_[index]);
         segment.y *= -1.0;
-        segment.heading = boundAngle0to2PiRadians(2*Math.PI - segment.heading);
+        segment.heading *= -1.0;
         return segment;
       }
     } else {
@@ -163,16 +168,4 @@ public class Trajectory {
 
     return str;
   }
-  
-  public static double boundAngle0to2PiRadians(double angle) {
-	    // Naive algorithm
-	    while (angle >= 2.0 * Math.PI) {
-	      angle -= 2.0 * Math.PI;
-	    }
-	    while (angle < 0.0) {
-	      angle += 2.0 * Math.PI;
-	    }
-	    return angle;
-	  }
-  
 }
