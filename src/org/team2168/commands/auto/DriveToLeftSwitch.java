@@ -19,11 +19,11 @@ public class DriveToLeftSwitch extends CommandGroup {
     public DriveToLeftSwitch() {
     	 addSequential(new DriveXDistance(3.0,1.0,0.05));
     	 addSequential(new RotateXDistancePIDZZZ(-45,1.0,0.22));
-    	 addSequential(new DriveXDistance(6.0,1.0,0.05));
+    	 addSequential(new DriveXDistance(6.5,1.0,0.05));
     	 addSequential(new RotateXDistancePIDZZZ(45,1.0,0.22));
-    	 addSequential(new DriveXDistance(3.0,1.0,0.1));
-    	 addSequential(new RotateXDistancePIDZZZ(90,1.0,0.22));
     	 addSequential(new DriveXDistance(1.0,1.0,0.1));
+    	 addSequential(new RotateXDistancePIDZZZ(90,1.0,0.22));
+    	 addSequential(new DriveXDistance(0.5,1.0,0.1));
     	 
     	 
     	 //score on switch (Spit Intake)

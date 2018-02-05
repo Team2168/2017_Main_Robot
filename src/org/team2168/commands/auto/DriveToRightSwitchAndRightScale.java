@@ -19,7 +19,7 @@ public class DriveToRightSwitchAndRightScale extends CommandGroup {
       	addSequential(new RotateXDistancePIDZZZ(45,0.7,0.2));
       	addSequential(new DriveXDistance(5.5,0.9,0.05));
       	addSequential(new RotateXDistancePIDZZZ(-45,0.7,0.2));
-      	addSequential(new DriveXDistance(3.0 ,0.6,0.1));
+      	addSequential(new DriveXDistance(2.0 ,0.6,0.1));
       	 
          //score on switch (Spit Intake)
    	 	addSequential(new LowerGearArmDANGEROUS(),0.3); 
@@ -29,10 +29,10 @@ public class DriveToRightSwitchAndRightScale extends CommandGroup {
    	    
    	  //Go Around Switch
    	    addSequential(new RotateXDistancePIDZZZ(90,1.0,.22));
-   	    addSequential(new DriveXDistance(3.0,1.0,0.1));
+   	    addSequential(new DriveXDistance(4.1,1.0,0.1));
    	    addSequential(new RotateXDistancePIDZZZ(-90,1.0,.22));
-   	    addSequential(new DriveXDistance(7.5,1.0,0.1));
-   	    addSequential(new RotateXDistancePIDZZZ(-105,1.0,.22));
+   	    addSequential(new DriveXDistance(9.3,1.0,0.1));
+   	    addSequential(new RotateXDistancePIDZZZ(-99,1.0,.22));
    	    addSequential(new DriveXDistance(1.0, 1.0,0.1));
       	 
    	  //pick up second cube
@@ -44,10 +44,10 @@ public class DriveToRightSwitchAndRightScale extends CommandGroup {
    	 	
    	 	//go to scale
    	 	addSequential(new DriveXDistance(-2.5,1.0,0.1));
-   	    addSequential(new RotateXDistancePIDZZZ(105,1.0,.22));
+   	    addSequential(new RotateXDistancePIDZZZ(99,1.0,.22));
    	    addSequential(new DriveXDistance(8.0,1.0,0.1));
    	    addSequential(new RotateXDistancePIDZZZ(-90,1.0,.22));
-   	    
+   	    addSequential(new DriveXDistance(1.3,1.0,0.1));
    	//score on scale (Spit Intake)
    	 	addSequential(new LowerGearArmDANGEROUS(),0.3); 
    	 	addSequential(new DriveGearIntakeRollerWithConstant(-1.0),0.4);
