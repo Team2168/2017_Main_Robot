@@ -331,6 +331,12 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("2018 Right Switch From Center and left scale", new DriveToRightSwitchAndLeftScale());
         autoChooser.addObject("2018 Left Scale From Left Side", new DriveToLeftScaleFromLeftSide());
         autoChooser.addObject("2018 Right Scale From Right Side", new DriveToRightScaleFromRightSide());
+        autoChooser.addObject("2018 Right Scale from Left side", new DriveToRightScaleFromLeftSide());
+        autoChooser.addObject("2018 Left Scale from Right side", new DriveToLeftScaleFromRightSide());
+        autoChooser.addObject("2018 Left Switch from Left side", new DriveToLeftSwitchFromLeftSide());
+        autoChooser.addObject("2018 Right Switch from Right side", new DriveToRightSwitchFromRightSide());
+        autoChooser.addObject("2018 Left Switch from Right side", new DriveToLeftSwitchFromRightSide());
+        autoChooser.addObject("2018 Right Switch from Left side", new DriveToRightSwitchFromLeftSide());
         //  autoChooser.addObject("Do Something", new DoSomething());
     }
     
