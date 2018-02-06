@@ -21,7 +21,7 @@ public class DriveToRightSwitchAndRightScale extends CommandGroup {
       	addSequential(new RotateXDistancePIDZZZ(-45,0.7,0.2));
       	addSequential(new DriveXDistance(2.0 ,0.6,0.1));
       	 
-         //score on switch (Spit Intake)
+        //score on switch (Spit Intake)
    	 	addSequential(new LowerGearArmDANGEROUS(),0.3); 
    	 	addSequential(new DriveGearIntakeRollerWithConstant(-1.0),0.4);
    	 	addSequential(new DriveGearIntakeRollerWithConstant(0.0),0.4);
