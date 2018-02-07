@@ -25,7 +25,7 @@ var io = ('undefined' === typeof module ? {} : module.exports);
    * @api public
    */
 
-  io.version = '0.9.11';
+  //io.version = '0.9.11';
 
   /**
    * Protocol implemented.
@@ -33,7 +33,7 @@ var io = ('undefined' === typeof module ? {} : module.exports);
    * @api public
    */
 
-  io.protocol = 1;
+  //io.protocol = 1;
 
   /**
    * Available transports, these will be populated with the available transports

@@ -22,7 +22,7 @@ public class Pneumatics extends Subsystem {
      * Private constructor for the Pneumatics subsystem
      */
     private Pneumatics(){
-    	compressor = new Compressor();
+    	compressor = new Compressor(RobotMap.PCM_CHANNEL);
     	pressureSensor = new AnalogInput(RobotMap.PRESSURE_SENSOR);
     }
     

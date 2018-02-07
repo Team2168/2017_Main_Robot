@@ -93,7 +93,7 @@ public class PowerDistribution {
 		for(int i=0; i<NUM_OF_PDP_CHANNELS; i++) {
 			
 			
-			channelCurrent[i].putData(pdp.getCurrent(i));
+			channelCurrent[i].putData(0); //pdp.getCurrent(i)
 			channelPower[i] = channelCurrent[i].getLatestValue() * batteryVoltage;
 		
 			//calculate current average over last period of time and report error

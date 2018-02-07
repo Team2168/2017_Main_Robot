@@ -26,7 +26,7 @@ public class GearIntakeArm extends Subsystem {
 	 * @author Elijah Reeds
 	 */
 	private GearIntakeArm() {
-		GearIntakeArmPiston = new DoubleSolenoid(RobotMap.GEAR_INTAKE_PISTON_EXTEND, RobotMap.GEAR_INTAKE_PISTON_RETRACT);
+		GearIntakeArmPiston = new DoubleSolenoid(RobotMap.PCM_CHANNEL,RobotMap.GEAR_INTAKE_PISTON_EXTEND, RobotMap.GEAR_INTAKE_PISTON_RETRACT);
 		
 		if(Robot.isPracticeRobot())
 		{

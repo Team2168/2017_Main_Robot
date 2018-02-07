@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -126,6 +127,8 @@ public class Robot extends IterativeRobot {
 		
 		
         drivetrain.calibrateGyro();
+        
+        LiveWindow.disableAllTelemetry();
         
         SmartDashboard.putData("Autonomous Mode Chooser", Robot.autoChooser);
         SmartDashboard.putData("Control Style Chooser", Robot.controlStyleChooser);
@@ -289,6 +292,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	
+    	double runTime = Timer.getFPGATimestamp();
     	autoMode = false;
         Scheduler.getInstance().run();
         
@@ -296,6 +300,8 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putNumber("GunStyleXValueMakingThisLongSoWeCanFindIt", Robot.oi.driverJoystick.getLeftStickRaw_X());
         SmartDashboard.putNumber("GunStyleXInterpolatedValueMakingThisLongSoWeCanFindIt", Robot.drivetrain.getGunStyleXValue());
+        
+        SmartDashboard.putNumber("TeleopLoopTime", Timer.getFPGATimestamp()-runTime);
         
     
     }

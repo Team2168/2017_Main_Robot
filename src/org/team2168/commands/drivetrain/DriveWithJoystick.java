@@ -1,5 +1,14 @@
 package org.team2168.commands.drivetrain;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.TimeZone;
+
 import org.team2168.OI;
 import org.team2168.Robot;
 import org.team2168.RobotMap;
@@ -37,7 +46,12 @@ public class DriveWithJoystick extends Command {
 
 	static final double DIST_ERROR_TOLERANCE_INCH = 1;
 	static final double TURN_ERROR_TOLERANCE_DEG =1;
-
+	
+	static final int secondsToRecord = 10;
+	private double[][] driverRecordArray = new double[2][(int) (secondsToRecord*(1/0.02))];  
+	int timeIndex;
+	private boolean write = false;
+	
 	double lastRotateOutput;
 	
     public DriveWithJoystick(int inputStyle) {
@@ -50,13 +64,27 @@ public class DriveWithJoystick extends Command {
 		this.speed = RobotMap.AUTO_NORMAL_SPEED;
 		this.powerShift = 1;
 		this.lastRotateOutput = 0;
+		this.timeIndex = 0;
 		
-		
+		//initialize array
+		 for (int row = 0; row < driverRecordArray.length; row++) {
+		    for (int col = 0; col < driverRecordArray[row].length; col++) {
+		    	driverRecordArray[row][col] = 0.0;
+		    }
+		 }
+
+
+		//Read more: http://javarevisited.blogspot.com/2015/09/how-to-loop-two-dimensional-array-in-java.html#ixzz54VMFEMeX
+
 		
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
+    	
+    	timeIndex = 0;
+    	
     	ctrlStyle = Robot.getControlStyleInt();
     	switch(ctrlStyle){
 		/**
@@ -157,14 +185,29 @@ public class DriveWithJoystick extends Command {
 //		
 		Robot.drivetrain.tankDrive(Robot.drivetrain.getGunStyleXValue(), Robot.drivetrain.getGunStyleXValue());
 		if ((Robot.drivetrain.getGunStyleXValue() > 0.25 || Robot.drivetrain.getGunStyleXValue() < -0.25)
-				&&!(Robot.oi.driverJoystick.getLeftStickRaw_Y() > 0.1 || Robot.oi.driverJoystick.getLeftStickRaw_Y() < -0.1)) {
-				Robot.drivetrain.tankDrive(Robot.drivetrain.getGunStyleXValue(), Robot.drivetrain.getGunStyleXValue());
-				}	
+				&&!(Robot.oi.driverJoystick.getLeftStickRaw_Y() > 0.1 || Robot.oi.driverJoystick.getLeftStickRaw_Y() < -0.1)) 
+		{
+				Robot.drivetrain.tankDrive(Robot.drivetrain.getGunStyleXValue(), Robot.drivetrain.getGunStyleXValue());		
+		}	
 				else {
 					Robot.drivetrain.tankDrive((Robot.drivetrain.getGunStyleXValue())+Robot.oi.driverJoystick.getLeftStickRaw_Y(),
 											   (Robot.drivetrain.getGunStyleXValue())-Robot.oi.driverJoystick.getLeftStickRaw_Y());
-					Robot.drivetrain.rotateDriveStraightController.setSetPoint(Robot.drivetrain.getHeading());
+					Robot.drivetrain.rotateDriveStraightController.setSetPoint(Robot.drivetrain.getHeading());					
 				}
+		
+		if (timeIndex < driverRecordArray[0].length)
+		{					
+			driverRecordArray[0][timeIndex] = Robot.drivetrain.getleftMotor1Voltage();
+			driverRecordArray[1][timeIndex] = Robot.drivetrain.getrightMotor1Voltage();
+		}
+		else
+		{
+			if (!write)
+			{
+				dataToFile();
+				write = true;
+			}
+		}
 		
         break;
         
@@ -226,4 +269,45 @@ public class DriveWithJoystick extends Command {
     protected void interrupted() {
     	end();
     }
+    
+    
+ 
+
+/**
+ * Writes current values for all data elements to the log file for data elements that have file logging enabled.
+ */
+private void dataToFile() {
+	
+	PrintWriter log;
+	
+	try {
+		File file = new File("/home/lvuser/DriverRecorder");
+		if (!file.exists()) {
+			if (file.mkdir()) {
+				System.out.println("Recorder Directory is created!");
+			} else {
+				System.out.println("Failed to create Recorder directory!");
+			}
+		}
+		Date date = new Date() ;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("EST5EDT"));
+		log = new PrintWriter("/home/lvuser/DriverRecorder/DriverRecorder10SecLog.txt", "UTF-8");
+		
+		for (int i=0; i<driverRecordArray[0].length; i++)
+		{
+					log.println(driverRecordArray[0][i] + "," + driverRecordArray[1][i]);
+					log.flush();
+		}
+		
+		System.out.println("Driver Recorder File Written");
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+}
 }

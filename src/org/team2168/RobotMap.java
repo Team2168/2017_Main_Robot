@@ -387,4 +387,5 @@ public class RobotMap {
 	 ******************************************************************/
 	public static final I2C.Port I2C_PORT = I2C.Port.kOnboard;
 	public static final int I2C_ADDRESS = 10;
+	public static final int PCM_CHANNEL = 1;
 }

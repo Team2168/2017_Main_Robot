@@ -18,7 +18,7 @@ public class BallIntakeArm extends Subsystem {
 	private static BallIntakeArm instance = null;
 	
 	private BallIntakeArm(){
-			ballIntakeArmPiston = new DoubleSolenoid(RobotMap.BALL_INTAKE_PISTON_EXTEND,
+			ballIntakeArmPiston = new DoubleSolenoid(RobotMap.PCM_CHANNEL,RobotMap.BALL_INTAKE_PISTON_EXTEND,
 													 RobotMap.BALL_INTAKE_PISTON_RETRACT);
 
 			if(Robot.isPracticeRobot())
