@@ -15,11 +15,11 @@ public class DriveToRightScaleFromLeftSide extends CommandGroup {
 
     public DriveToRightScaleFromLeftSide() {
     	addSequential(new DriveXDistance(19.8,0.7,0.05));
-    	addSequential(new RotateXDistancePIDZZZ(45,0.7,0.2));
+    	addSequential(new RotateXDistancePIDZZZ(90,0.7,0.2));
     	addSequential(new DriveXDistance(21.0,0.7,0.05));
-    	addSequential(new RotateXDistancePIDZZZ(-45,0.7,0.2));
+    	addSequential(new RotateXDistancePIDZZZ(-90,0.7,0.2));
     	addSequential(new DriveXDistance(7.0,0.7,0.05));
-    	addSequential(new RotateXDistancePIDZZZ(-45,0.7,0.2));
+    	addSequential(new RotateXDistancePIDZZZ(-90,0.7,0.2));
     	addSequential(new DriveXDistance(2.0,0.7,0.05));
     	
     	
