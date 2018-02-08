@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveToRightSwitchFromLeftSide extends CommandGroup {
 
     public DriveToRightSwitchFromLeftSide() {
-    	addSequential(new DriveXDistance(19.8,0.7,0.05));
+    	addSequential(new DriveXDistance(18.0,0.7,0.05));
     	addSequential(new RotateXDistancePIDZZZ(90,0.7,0.2));
-    	addSequential(new DriveXDistance(20.0,0.7,0.05));
-    	addSequential(new RotateXDistancePIDZZZ(75,0.7,0.2));
-    	addSequential(new DriveXDistance(5.0,0.7,0.05));
+    	addSequential(new DriveXDistance(20.9,0.7,0.05));
+    	addSequential(new RotateXDistancePIDZZZ(120,0.5,0.2));
+    	addSequential(new DriveXDistance(1.7,0.7,0.05));
     	
     	
     	//score on switch (Spit Intake)

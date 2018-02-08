@@ -104,10 +104,12 @@ public class OI {
 		operatorJoystick.ButtonX().whenReleased(new RaiseGearArm());
 
 		//Blue Hopper Shot Angle
-		operatorJoystick.ButtonY().whenPressed(new SetHoodToAngle(101.16));
-		operatorJoystick.ButtonY().whenPressed(new RotateTurretAnglePIDZZZ(-79.7, 0.7, 0.2, 0.2,true));
-		operatorJoystick.ButtonY().whenPressed(new DriveShooterPIDSpeed(3000));
-
+		//operatorJoystick.ButtonY().whenPressed(new SetHoodToAngle(101.16));
+		//operatorJoystick.ButtonY().whenPressed(new RotateTurretAnglePIDZZZ(-79.7, 0.7, 0.2, 0.2,true));
+		//operatorJoystick.ButtonY().whenPressed(new DriveShooterPIDSpeed(3000));
+		operatorJoystick.ButtonY().whenPressed(new RotateXDistancePIDZZZ(90, 0.4, 0.2));
+		
+		
 		//Fire
 		operatorJoystick.ButtonA().whileHeld(new DriveElevatorWithConstant(0.45));
 		operatorJoystick.ButtonA().whileHeld(new DriveIndexerWithConstant(0.75));

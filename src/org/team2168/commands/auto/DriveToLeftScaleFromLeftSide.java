@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveToLeftScaleFromLeftSide extends CommandGroup {
 
     public DriveToLeftScaleFromLeftSide() {
-    	addSequential(new DriveXDistance(27.0,0.7,0.05));
-    	addSequential(new RotateXDistancePIDZZZ(45,0.7,0.2));
-    	addSequential(new DriveXDistance(3.7,0.7,0.05));
+    	addSequential(new DriveXDistance(26.0,0.7,0.05));
+    	addSequential(new RotateXDistancePIDZZZ(90,0.7,0.2));
+    	addSequential(new DriveXDistance(1.8,0.7,0.05));
     	
     	//score on switch (Spit Intake)
    	 	addSequential(new LowerGearArmDANGEROUS(),0.3); 
