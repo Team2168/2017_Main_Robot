@@ -382,5 +382,13 @@ public class OI {
 	public static double  getDriveAgitatorJoystick(){
 		return 0;
 	}
+
+	public static double getLeftJoystick() {
+		return testJoystick.getLeftStickRaw_Y();
+	}
+
+
 }
+
+
 
