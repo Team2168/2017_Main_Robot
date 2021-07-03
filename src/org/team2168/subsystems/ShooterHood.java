@@ -56,10 +56,10 @@ public class ShooterHood extends Subsystem {
 		
     }
 	
-	/**
-	 * Returns the shooter hood singleton object
-	 * @return is the current shooter hood object
-	 */
+    /**
+     * Returns the shooter hood singleton object
+     * @return is the current shooter hood object
+     */
     public static ShooterHood getInstance(){
     	if(instance == null)
     		instance = new ShooterHood();
@@ -71,46 +71,46 @@ public class ShooterHood extends Subsystem {
      * Takes a given angle and rotates the servo motor to that angle
      * @param degrees the angle limited by the min and max values defined in RobotMap
      */
-	public void setAngle(double degrees){
-		if(degrees <= WPILIB_MIN_SERVO_ANGLE)
-			degrees = WPILIB_MIN_SERVO_ANGLE;
+    public void setAngle(double degrees){
+    	if(degrees <= WPILIB_MIN_SERVO_ANGLE)
+		degrees = WPILIB_MIN_SERVO_ANGLE;
 		
-		if(degrees >= WPILIB_MAX_SERVO_ANGLE)
-			degrees = WPILIB_MAX_SERVO_ANGLE;
+	if(degrees >= WPILIB_MAX_SERVO_ANGLE)
+		degrees = WPILIB_MAX_SERVO_ANGLE;
 		
-		startAngle = hoodServo.getAngle();
-		startTime = Timer.getFPGATimestamp();
+	startAngle = hoodServo.getAngle();
+	startTime = Timer.getFPGATimestamp();
 		
-		hoodServo.setAngle(degrees);
-	}
+	hoodServo.setAngle(degrees);
+    }
+
+    /**
+     * Returns the current angle of the servo by taking the angle it was last set to
+     * with the time before the movement begins and after that is called the current
+     * time and angle the servo is moving to is taken and the current angle is estimated
+     * @return the estimated current angle of the servo in degrees
+     */
+    public double getAngle(){
+		
+	return hoodServo.getAngle();
+		
+	//endAngle = hoodServo.getAngle();
+//	double angleDifference = endAngle - startAngle;
+//	double timeDifference = Timer.getFPGATimestamp() - startTime;
+//
+//	if(angleDifference > 0)
+//		currentAngle = (startAngle + (timeDifference * DEGREES_PER_SECOND));		
+//	else if(angleDifference < 0)
+//		currentAngle = (startAngle - (timeDifference * DEGREES_PER_SECOND));
+//	else //angleDifference == 0
+//		currentAngle = endAngle;
+//	
+//	return currentAngle;
+    }
 	
-	/**
-	 * Returns the current angle of the servo by taking the angle it was last set to
-	 * with the time before the movement begins and after that is called the current
-	 * time and angle the servo is moving to is taken and the current angle is estimated
-	 * @return the estimated current angle of the servo in degrees
-	 */
-	public double getAngle(){
-		
-		return hoodServo.getAngle();
-		
-		//endAngle = hoodServo.getAngle();
-//		double angleDifference = endAngle - startAngle;
-//		double timeDifference = Timer.getFPGATimestamp() - startTime;
-//		
-//		if(angleDifference > 0)
-//			currentAngle = (startAngle + (timeDifference * DEGREES_PER_SECOND));		
-//		else if(angleDifference < 0)
-//			currentAngle = (startAngle - (timeDifference * DEGREES_PER_SECOND));
-//		else //angleDifference == 0
-//			currentAngle = endAngle;
-//		
-//		return currentAngle;
-	}
-	
-	/**
-	 * Sets the default command of the subsystem
-	 */
+    /**
+     * Sets the default command of the subsystem
+     */
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
     	//setDefaultCommand(new DriveHoodWithJoystick());
