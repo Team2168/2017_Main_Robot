@@ -24,7 +24,7 @@ public class ShooterHood extends Subsystem {
     private static double startTime;
 
     public static final double WPILIB_MIN_SERVO_ANGLE = 0.0; //degrees
-	public static final double WPILIB_MAX_SERVO_ANGLE = 360.0; //degrees
+    public static final double WPILIB_MAX_SERVO_ANGLE = 360.0; //degrees
     private static final double TIME_TO_SERVO_FULL_EXTENSION = 3.48; //Avg time to move from retract to extend
     private static final double PERCENT_PER_SECOND = 1.00 / TIME_TO_SERVO_FULL_EXTENSION;
     private static final double DEGREES_PER_SECOND = (WPILIB_MAX_SERVO_ANGLE - WPILIB_MIN_SERVO_ANGLE)
